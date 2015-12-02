@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+<!-- 	<persistence-unit name="crm-jpa" transaction-type="RESOURCE_LOCAL">	 -->
+<!-- 		<non-jta-data-source>java:/jboss/datasources/MySqlDS</non-jta-data-source>	 -->
+        
+<!--         <class>br.com.crm.entidades.pessoas.Cliente</class> -->
+<!--         <class>br.com.crm.entidades.pessoas.Usuario</class> -->
+<!--         <class>br.com.crm.entidades.pessoas.autorizacao.Permissao</class> -->
+<!--         <class>br.com.crm.entidades.pessoas.autorizacao.TipoPermissao</class> -->
+        
+<!-- 	    <properties> -->
+<!-- 	      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/> -->
+<!-- 	      <property name="hibernate.show_sql" value="false"/> -->
+<!-- 	      <property name="hibernate.sql_format" value="false"/> -->
+<!-- 	      <property name="hibernate.hbm2ddl.auto" value="update"/> -->
+<!-- 	      <property name="hibernate.connection.charSet" value="UTF-8"/> -->
+<!-- 	    </properties> -->
+<!-- 	</persistence-unit> -->
+	
+	<persistence-unit name="CRMJpaTest" transaction-type="RESOURCE_LOCAL">	
+
+        <class>br.com.crm.entidades.pessoas.Cliente</class>
+        <class>br.com.crm.entidades.pessoas.Usuario</class>
+        <class>br.com.crm.entidades.pessoas.autorizacao.PermissaoDTO</class>
+        <class>br.com.crm.entidades.pessoas.autorizacao.TipoPermissaoDTO</class>        
+	    
+	    <properties>
+	      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+	      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+	      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/crmtest" />
+	      <property name="javax.persistence.jdbc.user" value="root" />
+	      <property name="javax.persistence.jdbc.password" value="123456" />
+	      <property name="hibernate.show_sql" value="true"/>
+	      <property name="hibernate.sql_format" value="true"/>
+	      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+	      <property name="hibernate.connection.charSet" value="UTF-8"/>
+	    </properties>
+	</persistence-unit>	
+</persistence>

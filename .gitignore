@@ -1,0 +1,5 @@
+#############################################################################
+# Excluindo do commit arquivos gerados pelo eclipe relacionado ao workspace #
+#############################################################################
+.metadata
+RemoteSystemsTempFiles
