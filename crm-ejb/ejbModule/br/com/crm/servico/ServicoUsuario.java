@@ -4,14 +4,12 @@
 package br.com.crm.servico;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
 
 import br.com.crm.entidades.pessoas.Usuario;
 import br.com.crm.entidades.pessoas.autorizacao.Permissao;
-import br.com.crm.entidades.pessoas.autorizacao.TipoPermissao;
 import br.com.crm.modelo.dao.UsuarioDAO;
 import br.com.crm.modelo.excecoes.ExcecaoModelo;
 import br.com.crm.servico.dto.PermissaoDTO;
@@ -41,27 +39,6 @@ public class ServicoUsuario implements IServico<UsuarioDTO> {
 		usuario.setSenha(usuarioDTO.getSenha());
 		usuario.setConfirmaSenha(usuarioDTO.getConfirmaSenha());
 		
-		if(usuarioDTO.getListaPermissoes().size() > 0){
-			
-			List<Permissao> listaPermissoes = new ArrayList<Permissao>();
-			
-			for(PermissaoDTO permissaoDTO : usuarioDTO.getListaPermissoes()){
-				Permissao permissao = new Permissao();
-				permissao.setTela(permissaoDTO.getTela());
-				
-				if(permissao.getTipoPermissao() != null){
-					TipoPermissao tipoPermissao = new TipoPermissao();
-					tipoPermissao.setSigla(permissao.getTipoPermissao().getSigla());
-					tipoPermissao.setDescricao(permissao.getTipoPermissao().getDescricao());
-					permissao.setTipoPermissao(tipoPermissao);
-				}
-
-				listaPermissoes.add(permissao);
-			}
-				
-			usuario.setListaPermissoes(listaPermissoes);
-		}
-		
 		try {
 			usuarioDAO.incluir(usuario);
 		} catch (ExcecaoModelo e) {
@@ -73,38 +50,18 @@ public class ServicoUsuario implements IServico<UsuarioDTO> {
 	public void alterar(UsuarioDTO usuarioDTO) throws ExcecaoServico {
 		Usuario usuario = new Usuario();
 		usuario.setId(usuarioDTO.getId());
-		usuario.setNome(usuarioDTO.getNome());
-		usuario.setCpf(usuarioDTO.getCpf());
-		usuario.setEndereco(usuarioDTO.getEndereco());		
-		usuario.setLogin(usuarioDTO.getLogin());
-		usuario.setAtivo(usuarioDTO.getAtivo());
-		usuario.setSenha(usuarioDTO.getSenha());
-		usuario.setConfirmaSenha(usuarioDTO.getConfirmaSenha());
-		
-		if(usuarioDTO.getListaPermissoes().size() > 0){
-			
-			List<Permissao> listaPermissoes = new ArrayList<Permissao>();
-			
-			for(PermissaoDTO permissaoDTO : usuarioDTO.getListaPermissoes()){
-				Permissao permissao = new Permissao();
-				permissao.setId(permissaoDTO.getId());
-				permissao.setTela(permissaoDTO.getTela());
-				
-				if(permissao.getTipoPermissao() != null){
-					TipoPermissao tipoPermissao = new TipoPermissao();
-					tipoPermissao.setId(permissao.getTipoPermissao().getId());
-					tipoPermissao.setSigla(permissao.getTipoPermissao().getSigla());
-					tipoPermissao.setDescricao(permissao.getTipoPermissao().getDescricao());
-					permissao.setTipoPermissao(tipoPermissao);
-				}
-
-				listaPermissoes.add(permissao);
-			}
-				
-			usuario.setListaPermissoes(listaPermissoes);
-		}
 		
 		try {
+			usuario = usuarioDAO.recuperar(usuario);
+			usuario.setAtivo(usuarioDTO.getAtivo());
+			usuario.setCpf(usuarioDTO.getCpf());
+			usuario.setEndereco(usuarioDTO.getEndereco());
+			usuario.setLogin(usuarioDTO.getLogin());
+			usuario.setNome(usuarioDTO.getNome());
+			if(usuarioDTO.getSenha() != null){
+				usuario.setSenha(usuarioDTO.getSenha());
+			}
+			
 			usuarioDAO.alterar(usuario);
 		} catch (ExcecaoModelo e) {
 			new ExcecaoServico("Não foi possível salvar os dados do usuário");
