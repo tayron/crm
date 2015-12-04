@@ -1,22 +1,38 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<h:head>
-		<title><ui:insert name="pageTitle"></ui:insert></title>
-		<link rel="StyleSheet" type="text/css" href="/resources/css/default.css" />
-	</h:head>
+<h:head>
+	<meta http-equiv="Cache-Control" content="no-cache" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+	<title><ui:insert name="pageTitle">Layout padrão</ui:insert></title>
+
+	<h:outputStylesheet library="css" name="default.css" />
+</h:head>
+<h:body>
+
+	<h1>
+		CRM - <ui:insert name="pageTitle">Título da página</ui:insert>
+	</h1>
 	
-	<h:body>
-		
-		<h2>
-			<ui:insert name="pageHeader">Page Header</ui:insert>
-		</h2>
-		
-		<div>
-			<ui:insert name="body">Page Body</ui:insert>
-		</div>	
-	</h:body>
+	<header>
+		<ui:insert name="header">
+			<ui:include src="/templates/menu.xhtml" />
+		</ui:insert>
+	</header>
+	
+	<h2>
+		<ui:insert name="pageHeader">Page Header</ui:insert>
+	</h2>
+
+	<div>
+		<ui:insert name="body">Page Body</ui:insert>
+	</div>
+	<h:outputScript library="js" name="default.js" />
+</h:body>
 </html>

@@ -2,12 +2,15 @@ package br.com.crm.servico;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
+
 import br.com.crm.servico.excecao.ExcecaoServico;
 
 /**
  * Interface que define os métodos padrões de um serviço
- * @param <DTO>
+ * @param <DTO>ServicoUsuario
  */
+@Stateless
 public interface IServico<DTO> {
 	
 	/**

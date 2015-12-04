@@ -6,7 +6,8 @@ package br.com.crm.servico;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import br.com.crm.entidades.pessoas.Usuario;
 import br.com.crm.entidades.pessoas.autorizacao.Permissao;
@@ -20,15 +21,18 @@ import br.com.crm.servico.excecao.ExcecaoServico;
 /**
  * Classe que define os métodos padrão de um serviço
  */
-public class ServicoUsuario implements IServico<UsuarioDTO> {
+@Stateless
+public class ServicoUsuario implements IServico<UsuarioDTO>{
 
 	/**
 	 * Injetando usuario DAO para manipulação dos dados do usuário
 	 */
-	@EJB
-	UsuarioDAO usuarioDAO;
+	@Inject
+	UsuarioDAO usuarioDAO = new UsuarioDAO();
 	
-	@Override
+	/**
+	 * {@link IServico#incluir(Object)}
+	 */
 	public void incluir(UsuarioDTO usuarioDTO) throws ExcecaoServico {
 		Usuario usuario = new Usuario();
 		usuario.setNome(usuarioDTO.getNome());
@@ -46,7 +50,9 @@ public class ServicoUsuario implements IServico<UsuarioDTO> {
 		}
 	}
 
-	@Override
+	/**
+	 * {@link IServico#alterar(Object)}
+	 */
 	public void alterar(UsuarioDTO usuarioDTO) throws ExcecaoServico {
 		Usuario usuario = new Usuario();
 		usuario.setId(usuarioDTO.getId());
@@ -69,7 +75,9 @@ public class ServicoUsuario implements IServico<UsuarioDTO> {
 		
 	}
 
-	@Override
+	/**
+	 * {@link IServico#excluir(Object)}
+	 */
 	public void excluir(UsuarioDTO usuarioDTO) throws ExcecaoServico {
 		try {
 			Usuario usuario = new Usuario();
@@ -81,7 +89,9 @@ public class ServicoUsuario implements IServico<UsuarioDTO> {
 		
 	}
 
-	@Override
+	/**
+	 * {@link IServico#listar()}
+	 */
 	public List<UsuarioDTO> listar() throws ExcecaoServico {		
 		try {
 			List<UsuarioDTO> usuariosDTO = new ArrayList<UsuarioDTO>();
@@ -98,7 +108,9 @@ public class ServicoUsuario implements IServico<UsuarioDTO> {
 		}		
 	}
 
-	@Override
+	/**
+	 * {@link IServico#recuperar(Object)}
+	 */
 	public UsuarioDTO recuperar(UsuarioDTO usuarioDTO) throws ExcecaoServico {
 		try {
 			Usuario usuario = new Usuario();

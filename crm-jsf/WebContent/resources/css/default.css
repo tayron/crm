@@ -5,3 +5,7 @@ body{
 	margin: 0px;
 	font-size: 0.8em
 }
+
+ul{background-color: #000; color: #FFF; padding: 5px 0 5px 0}
+ul li{display: inline; padding: 5px}
+ul li a, ul li a:hover{color: #FFF}
