@@ -6,12 +6,12 @@ package br.com.crm.servico;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 
 import br.com.crm.entidades.pessoas.Usuario;
 import br.com.crm.entidades.pessoas.autorizacao.Permissao;
-import br.com.crm.modelo.dao.UsuarioDAO;
+import br.com.crm.modelo.dao.IUsuarioDAO;
 import br.com.crm.modelo.excecoes.ExcecaoModelo;
 import br.com.crm.servico.dto.PermissaoDTO;
 import br.com.crm.servico.dto.TipoPermissaoDTO;
@@ -22,17 +22,18 @@ import br.com.crm.servico.excecao.ExcecaoServico;
  * Classe que define os métodos padrão de um serviço
  */
 @Stateless
-public class ServicoUsuario implements IServico<UsuarioDTO>{
+public class ServicoUsuario implements IServicoUsuario{
 
 	/**
 	 * Injetando usuario DAO para manipulação dos dados do usuário
 	 */
-	@Inject
-	UsuarioDAO usuarioDAO = new UsuarioDAO();
+	@EJB
+	IUsuarioDAO usuarioDAO;
 	
-	/**
-	 * {@link IServico#incluir(Object)}
+	/* (non-Javadoc)
+	 * @see br.com.crm.servico.IServicoUsuario#incluir(br.com.crm.servico.dto.UsuarioDTO)
 	 */
+	@Override
 	public void incluir(UsuarioDTO usuarioDTO) throws ExcecaoServico {
 		Usuario usuario = new Usuario();
 		usuario.setNome(usuarioDTO.getNome());
@@ -50,9 +51,10 @@ public class ServicoUsuario implements IServico<UsuarioDTO>{
 		}
 	}
 
-	/**
-	 * {@link IServico#alterar(Object)}
+	/* (non-Javadoc)
+	 * @see br.com.crm.servico.IServicoUsuario#alterar(br.com.crm.servico.dto.UsuarioDTO)
 	 */
+	@Override
 	public void alterar(UsuarioDTO usuarioDTO) throws ExcecaoServico {
 		Usuario usuario = new Usuario();
 		usuario.setId(usuarioDTO.getId());
@@ -75,9 +77,10 @@ public class ServicoUsuario implements IServico<UsuarioDTO>{
 		
 	}
 
-	/**
-	 * {@link IServico#excluir(Object)}
+	/* (non-Javadoc)
+	 * @see br.com.crm.servico.IServicoUsuario#excluir(br.com.crm.servico.dto.UsuarioDTO)
 	 */
+	@Override
 	public void excluir(UsuarioDTO usuarioDTO) throws ExcecaoServico {
 		try {
 			Usuario usuario = new Usuario();
@@ -89,9 +92,10 @@ public class ServicoUsuario implements IServico<UsuarioDTO>{
 		
 	}
 
-	/**
-	 * {@link IServico#listar()}
+	/* (non-Javadoc)
+	 * @see br.com.crm.servico.IServicoUsuario#listar()
 	 */
+	@Override
 	public List<UsuarioDTO> listar() throws ExcecaoServico {		
 		try {
 			List<UsuarioDTO> usuariosDTO = new ArrayList<UsuarioDTO>();
@@ -108,9 +112,10 @@ public class ServicoUsuario implements IServico<UsuarioDTO>{
 		}		
 	}
 
-	/**
-	 * {@link IServico#recuperar(Object)}
+	/* (non-Javadoc)
+	 * @see br.com.crm.servico.IServicoUsuario#recuperar(br.com.crm.servico.dto.UsuarioDTO)
 	 */
+	@Override
 	public UsuarioDTO recuperar(UsuarioDTO usuarioDTO) throws ExcecaoServico {
 		try {
 			Usuario usuario = new Usuario();

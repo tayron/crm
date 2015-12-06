@@ -13,7 +13,7 @@ public class EntityUtils {
 	 * Retorna uma fábrica de conexão
 	 */
 	private EntityManagerFactory getEntityManagerFactory(){
-		return Persistence.createEntityManagerFactory("CRMJpa");
+		return Persistence.createEntityManagerFactory("crm-jpa");
 	}
 	
 	/**

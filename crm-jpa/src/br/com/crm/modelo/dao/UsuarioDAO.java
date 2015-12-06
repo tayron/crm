@@ -2,19 +2,19 @@ package br.com.crm.modelo.dao;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import br.com.crm.entidades.pessoas.Usuario;
 import br.com.crm.entidades.util.EntityUtils;
-import br.com.crm.modelo.IBaseDAO;
-import br.com.crm.modelo.IUsuarioDAO;
 import br.com.crm.modelo.excecoes.ExcecaoModelo;
 
 /**
  * Classe DAO para que manipula dos dao do usuário no banco
  */
-public class UsuarioDAO implements IBaseDAO<Usuario>, IUsuarioDAO{
+@Stateless
+public class UsuarioDAO implements IUsuarioDAO{
 
 	/**
 	 * 
@@ -22,7 +22,7 @@ public class UsuarioDAO implements IBaseDAO<Usuario>, IUsuarioDAO{
 	private EntityUtils entityUtil;
 	
 	/**
-	 * {@link IBaseDAO#excluir(Usuario)}
+	 * {@link IUsuarioDAO#excluir(Usuario)}
 	 */
 	public void incluir(Usuario usuario) throws ExcecaoModelo {	
 		entityUtil = new EntityUtils();
@@ -34,7 +34,7 @@ public class UsuarioDAO implements IBaseDAO<Usuario>, IUsuarioDAO{
 	}
 
 	/**
-	 * {@link IBaseDAO#alterar(Usuario)}
+	 * {@link IUsuarioDAO#alterar(Usuario)}
 	 */
 	public void alterar(Usuario usuario) throws ExcecaoModelo {
 		entityUtil = new EntityUtils();
@@ -46,7 +46,7 @@ public class UsuarioDAO implements IBaseDAO<Usuario>, IUsuarioDAO{
 	}
 
 	/**
-	 * {@link IBaseDAO#excluir(Usuario)}
+	 * {@link IUsuarioDAO#excluir(Usuario)}
 	 */
 	public void excluir(Usuario usuario) throws ExcecaoModelo {
 		entityUtil = new EntityUtils();
@@ -59,7 +59,7 @@ public class UsuarioDAO implements IBaseDAO<Usuario>, IUsuarioDAO{
 	}
 
 	/**
-	 * {@link IBaseDAO#listar()}
+	 * {@link IUsuarioDAO#listar()}
 	 */
 	public List<Usuario> listar() throws ExcecaoModelo {		
 		List<Usuario> usuarios = null;
@@ -71,13 +71,12 @@ public class UsuarioDAO implements IBaseDAO<Usuario>, IUsuarioDAO{
 			.createQuery("Select u from Usuario u", 
 				Usuario.class);
 		
-		usuarios = query.getResultList();
-		
+		usuarios = query.getResultList();		
 		return usuarios;
 	}
 
 	/**
-	 * {@link IBaseDAO#recuperar(Usuario)}
+	 * {@link IUsuarioDAO#recuperar(Usuario)}
 	 */
 	public Usuario recuperar(Usuario usuario) throws ExcecaoModelo {
 		entityUtil = new EntityUtils();
