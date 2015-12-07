@@ -15,13 +15,13 @@
 		<h:outputLabel value="Tela de listagem de usuários" />
 
 		<h:dataTable value="#{usuarioBean.listarUsuarios()}" var="usuario">
-			<h:column>
-				<f:facet name="nome">Nome</f:facet>    				
+			<h:column>				
+				<f:facet name="header">Nome</f:facet>    				
    				#{usuario.nome}
    			</h:column>
 			<h:column>
-				<f:facet name="email">Email</f:facet>
-		    	#{usuario.email}
+				<f:facet name="header">Login</f:facet>
+		    	#{usuario.login}
 			</h:column>
 		</h:dataTable>
 	</ui:define>
