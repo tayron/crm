@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
-  <runtime name="jboss-eap-6.1 Runtime"/>
+  <runtime name="jboss-eap Runtime"/>
   <fixed facet="jst.ejb"/>
   <fixed facet="java"/>
   <installed facet="jst.ejb" version="3.1"/>

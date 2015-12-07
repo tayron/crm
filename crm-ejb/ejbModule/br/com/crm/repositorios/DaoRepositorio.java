@@ -18,7 +18,6 @@ public class DaoRepositorio implements IDaoRepositorio {
 	@PersistenceContext(name="crm-jpa")
 	private EntityManager entityManager;
 	
-	@Override
 	public UsuarioDAO getUsuario() {
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		usuarioDAO.setEntityManager(entityManager);

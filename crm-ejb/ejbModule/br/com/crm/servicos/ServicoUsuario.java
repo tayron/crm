@@ -45,7 +45,6 @@ public class ServicoUsuario implements IServicoUsuario{
 	/**
 	 * @see IServicoUsuario#incluir(UsuarioDTO)
 	 */
-	@Override
 	public void incluir(UsuarioDTO usuarioDTO) throws ExcecaoServico {
 		Usuario usuario = new Usuario();
 		usuario.setNome(usuarioDTO.getNome());
@@ -70,7 +69,6 @@ public class ServicoUsuario implements IServicoUsuario{
 	/**
 	 * @see IServicoUsuario#alterar(UsuarioDTO)
 	 */
-	@Override
 	public void alterar(UsuarioDTO usuarioDTO) throws ExcecaoServico {
 		Usuario usuario = new Usuario();
 		usuario.setId(usuarioDTO.getId());
@@ -99,7 +97,6 @@ public class ServicoUsuario implements IServicoUsuario{
 	/**
 	 * @see IServicoUsuario#excluir(UsuarioDTO)
 	 */
-	@Override
 	public void excluir(UsuarioDTO usuarioDTO) throws ExcecaoServico {
 		try {
 			Usuario usuario = new Usuario();
@@ -116,7 +113,6 @@ public class ServicoUsuario implements IServicoUsuario{
 	/**
 	 * @see servico.IServicoUsuario#listar()
 	 */
-	@Override
 	public List<UsuarioDTO> listar() throws ExcecaoServico {		
 		try {
 			List<UsuarioDTO> usuariosDTO = new ArrayList<UsuarioDTO>();
@@ -136,7 +132,6 @@ public class ServicoUsuario implements IServicoUsuario{
 	/**
 	 * @see IServicoUsuario#recuperar(UsuarioDTO)
 	 */
-	@Override
 	public UsuarioDTO recuperar(UsuarioDTO usuarioDTO) throws ExcecaoServico {
 		try {
 			Usuario usuario = new Usuario();
