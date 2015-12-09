@@ -7,6 +7,9 @@ import javax.ejb.Local;
 import br.com.crm.dtos.UsuarioDTO;
 import br.com.crm.excecoes.ExcecaoServico;
 
+/**
+ * Interface que determina as implementações que deverá ter em serviço usuário
+ */
 @Local
 public interface IServicoUsuario {
 

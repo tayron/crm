@@ -14,7 +14,7 @@ public class Usuario extends Pessoa{
 	/**
 	 * Armazena o login do usuário 
 	 */
-	@Column(name="login", nullable=false, length=6)
+	@Column(name="login", nullable=false, length=45)
 	private String login;
 	
 	/**

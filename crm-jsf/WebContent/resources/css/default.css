@@ -3,12 +3,14 @@
 body{
 	padding: 0px;
 	margin: 0px;
-	font-size: 0.8em
+	font-size: 1em;
+	font-family: arial, verdana, sans-serif;
+	margin: 10px;
 }
-
-ul{background-color: #000; color: #FFF; padding: 5px 0 5px 0}
-ul li{display: inline; padding: 5px}
-ul li a, ul li a:hover{color: #FFF}
+label{display: table; width: 150px; float: left;}
+.element-menu{background-color: #000; color: #FFF; padding: 5px 0 5px 0}
+.element-menu li{display: inline; padding: 5px}
+.element-menu li a, .element-menu li a:hover{color: #FFF}
 table{width: 100%}
 table, table th, table td{border: 1px solid #000}
 

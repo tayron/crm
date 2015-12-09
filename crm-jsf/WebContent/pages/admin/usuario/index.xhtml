@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- 
+	Replace path to template, title, header and body
+	with actual data.
+-->
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="body">
+
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+		    <h1>Usuário <small>Gerenciar</small></h1>
+		    <ol class="breadcrumb">
+		        <li><a href="/crm-jsf/index.xhtml"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+		        <li class="active"><i class="fa fa-user"></i>Usuário</li>
+		    </ol>
+		</section>
+		
+		<!-- Main content -->
+		<section class="content">
+		    <div class="row">
+		        <div class="col-xs-12">
+		            <div class="box box-primary">
+		                <div class="box-header">
+		                    <h3 class="box-title">Usuários cadastrados</h3>
+		                    <div class="box-tools">
+		                    	<h:form method="get">		                        
+		                        <div class="input-group" style="width: 150px;">
+		                            <input type="text" name="search" class="form-control input-sm pull-right" placeholder="Procurar" value="" />
+		                            <div class="input-group-btn">
+		                                <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+		                            </div>
+		                        </div>
+		                        </h:form>
+		                    </div>
+		                </div><!-- /.box-header -->
+		                <div class="box-body table-responsive no-padding">
+							<h:messages id="messages" showDetail="true" autoUpdate="true"/>
+								
+							<h:dataTable value="#{usuarioBean.listarUsuarios()}" var="usuario" class="table table-hover">
+								<h:column>				
+									<f:facet name="header">Nome</f:facet>    				
+									#{usuario.nome}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Login</f:facet>
+									#{usuario.login}
+								</h:column>
+								<h:column>				
+									<f:facet name="header">CPF</f:facet>    				
+									#{usuario.cpf}
+								</h:column>								
+								<h:column>
+									<f:facet name="header">Endereço</f:facet>
+									#{usuario.endereco}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Status</f:facet>
+									#{usuario.ativo ? "Ativo" : "Inativo"}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Ação</f:facet>
+									<h:form>
+										<h:commandLink value="Alterar" action="#{usuarioBean.exibirTelaAlterarUsuario(usuario.id)}" />
+									</h:form>				 
+									<h:form>
+										<h:commandLink value="Excluir" action="#{usuarioBean.excluirUsuario(usuario)}" />
+									</h:form>		
+								</h:column>			
+							</h:dataTable>
+		                </div><!-- /.box-body -->         
+		            </div><!-- /.box -->
+		        </div>
+		    </div>
+		</section>
+	</ui:define>
+</ui:composition>
+
+</html>

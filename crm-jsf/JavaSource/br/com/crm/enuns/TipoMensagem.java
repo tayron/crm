@@ -11,8 +11,9 @@ public enum TipoMensagem {
 	CADASTRO_SUCESSO(0, "Registro criado com sucesso."),
 	CADASTRO_ERRO(1, "Erro ao tentar cadastrar."),
 	SALVO_SUCESSO(2, "Alterações salva com sucesso."),
-	SALVO_ERRO(3, "Erro ao salvar as alterações.");
-
+	SALVO_ERRO(3, "Erro ao salvar as alterações."),
+	EXCLUIDO_SUCESSO(2, "Exclusão feita com sucesso."),
+	EXCLUIDO_ERRO(3, "Erro ao realizar a exclusão.");
 	/**
 	 * 
 	 */

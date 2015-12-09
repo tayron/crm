@@ -1,17 +1,42 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"   
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
-    <h:body>
-		<ui:composition template="/templates/common.xhtml">
-				<ui:define name="pageTitle">Página inicial</ui:define>
-				<ui:define name="pageHeader">Página inicial do CRM</ui:define>
-				<ui:define name="body">
-					
-				</ui:define>
-		</ui:composition>
-	</h:body>
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+	<ui:composition template="/templates/common.xhtml">
+			<ui:define name="body">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+				    <h1>Dashboard
+				    </h1>
+				    <ol class="breadcrumb">
+				        <li class="active">Dashboard</li>
+				    </ol>
+				</section>
+				
+				<!-- Main content -->
+				<section class="content">
+				    <div class="row">
+				        <div class="col-xs-12">
+				
+				            <!-- general form elements -->
+				            <div class="box box-primary">
+				                <div class="box-header with-border">
+				                    <h3 class="box-title">Página principal</h3>
+				                </div><!-- /.box-header -->
+				                <!-- form start -->
+				                	<h:messages id="messages" showDetail="true" autoUpdate="true"/>
+									
+				            </div><!-- /.box -->
+				        </div>
+				    </div>
+				</section>	
+			</ui:define>
+	</ui:composition>
+
 </html>
