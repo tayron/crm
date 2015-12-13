@@ -10,12 +10,17 @@
 	 -->
 	<ui:composition template="/templates/common.xhtml">
 			<ui:define name="body">
+			
+				<f:metadata>    
+	    			<f:event type="preRenderView" listener="#{usuarioBean.carregarGruposDeUsuario()}"/>    
+				</f:metadata>				
+			
 				<!-- Content Header (Page header) -->
 				<section class="content-header">
 				    <h1>Usuário <small>Cadastrar</small>
 				    </h1>
 				    <ol class="breadcrumb">
-				        <li><a href="/crm-jsf/index.html"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+				        <li><a href="/crm-jsf/index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 				        <li><a href="/crm-jsf/pages/admin/usuario/index.xhtml"><i class="fa fa-user"></i> Usuários</a></li>
 				        <li class="active">Cadastrar</li>
 				    </ol>
@@ -39,6 +44,13 @@
 					                    <div class="box-body">
 										    <div class="row">
 										        <div class="col-xs-6">
+													<div class="form-group">
+														<h:outputLabel for="grupo" value="Grupo de usuário: " />
+														<h:selectOneMenu id="grupo" name="grupo" value="#{usuarioBean.usuarioDTO.grupo}" class="form-control">
+															<f:selectItem itemValue="" itemLabel="Selecione"/>
+														    <f:selectItems value="#{usuarioBean.gruposDTO}"  var="grupo" itemValue="#{grupo.id}" itemLabel="#{grupo.nome}"/>
+														</h:selectOneMenu>														
+									        		</div>										        
 													<div class="form-group">
 														<h:outputLabel for="nome" value="Nome: " />					
 										        		<h:inputText id="nome" name="nome" value="#{usuarioBean.usuarioDTO.nome}" label="Nome" required="true" maxlength="40" class="form-control">

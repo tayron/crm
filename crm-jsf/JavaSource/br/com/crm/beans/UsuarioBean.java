@@ -7,9 +7,11 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+import br.com.crm.dtos.GrupoDTO;
 import br.com.crm.dtos.UsuarioDTO;
 import br.com.crm.enuns.TipoMensagem;
 import br.com.crm.excecoes.ExcecaoServico;
+import br.com.crm.servicos.IServicoGrupo;
 import br.com.crm.servicos.IServicoUsuario;
 import br.com.crm.utils.Mensagem;
 
@@ -25,11 +27,38 @@ public class UsuarioBean implements IUsuarioBean {
 	 */
 	@EJB
 	private IServicoUsuario servicoUsuario;
+
+	/**
+	 * Injeção do serviço grupo para manipulação de dados
+	 */
+	@EJB
+	private IServicoGrupo servicoGrupo;
 	
 	/**
 	 * Objeto DTO que representa os dados do usuário
 	 */
 	private UsuarioDTO usuarioDTO;
+	
+	/**
+	 * Objeto DTO que representa os dados do grupo
+	 */
+	private List<GrupoDTO> gruposDTO;
+	
+	/**
+	 * Método que carrega uma lista de grupos de usuários
+	 */
+	public void carregarGruposDeUsuario(){
+		Mensagem mensagem = new Mensagem();
+		try {
+			gruposDTO = servicoGrupo.listar();
+			
+			if(gruposDTO.size() == 0){
+				mensagem.exibirAviso("Erro", "Não foi possível carregar a lista de grupos");								
+			}
+		} catch (ExcecaoServico e) {			
+			mensagem.exibirAviso("Erro", "Não foi possível carregar a lista de grupos");
+		}
+	}
 	
 	/** 
 	 * @see IUsuarioBean#listarUsuarios()
@@ -115,14 +144,11 @@ public class UsuarioBean implements IUsuarioBean {
 			mensagem.exibirAviso("Erro", TipoMensagem.EXCLUIDO_ERRO.getDescricao());
 		}		
 	}
-	
+
 	/**
 	 * @return the usuarioDTO
 	 */
 	public UsuarioDTO getUsuarioDTO() {
-		if(usuarioDTO == null){
-			usuarioDTO = new UsuarioDTO();
-		}
 		return usuarioDTO;
 	}
 
@@ -132,11 +158,18 @@ public class UsuarioBean implements IUsuarioBean {
 	public void setUsuarioDTO(UsuarioDTO usuarioDTO) {
 		this.usuarioDTO = usuarioDTO;
 	}
-	
+
 	/**
-	 * 
+	 * @return the gruposDTO
 	 */
-	public String cadastrarUsuario(){
-		return "cadastrar";
+	public List<GrupoDTO> getGruposDTO() {
+		return gruposDTO;
+	}
+
+	/**
+	 * @param gruposDTO the gruposDTO to set
+	 */
+	public void setGruposDTO(List<GrupoDTO> gruposDTO) {
+		this.gruposDTO = gruposDTO;
 	}
 }

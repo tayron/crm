@@ -1,5 +1,7 @@
 package br.com.crm.dtos;
 
+import br.com.crm.entidades.Grupo;
+
 
 /**
  * Método que representa os dados de uma entidade Usuario
@@ -19,6 +21,12 @@ public class UsuarioDTO extends PessoaDTO {
 	 * Armazena a senha do usuário
 	 */
 	private String senha;
+	
+	/**
+	 * Descreve o relacionamento com um grupo, onde
+	 * um usuário pertence a um grupo.
+	 */	
+	private Grupo grupo;
 	
 	/**
 	 * Armazena a senha de confirmação do usuário
@@ -65,5 +73,19 @@ public class UsuarioDTO extends PessoaDTO {
 	 */
 	public void setConfirmaSenha(String confirmaSenha) {
 		this.confirmaSenha = confirmaSenha;
+	}
+
+	/**
+	 * @return the grupo
+	 */
+	public Grupo getGrupo() {
+		return grupo;
+	}
+
+	/**
+	 * @param grupo the grupo to set
+	 */
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
 	}
 }

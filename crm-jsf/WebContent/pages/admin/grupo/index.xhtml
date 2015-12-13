@@ -13,10 +13,10 @@
 
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
-		    <h1>Usuário <small>Gerenciar</small></h1>
+		    <h1>Grupo <small>Gerenciar</small></h1>
 		    <ol class="breadcrumb">
 		        <li><a href="/crm-jsf/index.xhtml"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-		        <li class="active"><i class="fa fa-user"></i> Usuário</li>
+		        <li class="active"><i class="fa fa-users"></i> Grupo</li>
 		    </ol>
 		</section>
 		
@@ -26,7 +26,7 @@
 		        <div class="col-xs-12">
 		            <div class="box box-primary">
 		                <div class="box-header">
-		                    <h3 class="box-title">Usuários cadastrados</h3>
+		                    <h3 class="box-title">Grupos cadastrados</h3>
 		                    <div class="box-tools">
 		                    	<h:form method="get">		                        
 		                        <div class="input-group" style="width: 150px;">
@@ -41,34 +41,18 @@
 		                <div class="box-body table-responsive no-padding">
 							<h:messages id="messages" showDetail="true" autoUpdate="true"/>
 								
-							<h:dataTable value="#{usuarioBean.listarUsuarios()}" var="usuario" class="table table-hover">
+							<h:dataTable value="#{grupoBean.listarGrupos()}" var="grupo" class="table table-hover">
 								<h:column>				
 									<f:facet name="header">Nome</f:facet>    				
-									#{usuario.nome}
-								</h:column>
-								<h:column>
-									<f:facet name="header">Login</f:facet>
-									#{usuario.login}
-								</h:column>
-								<h:column>				
-									<f:facet name="header">CPF</f:facet>    				
-									#{usuario.cpf}
-								</h:column>								
-								<h:column>
-									<f:facet name="header">Endereço</f:facet>
-									#{usuario.endereco}
-								</h:column>
-								<h:column>
-									<f:facet name="header">Status</f:facet>
-									#{usuario.ativo ? "Ativo" : "Inativo"}
+									#{grupo.nome}
 								</h:column>
 								<h:column>
 									<f:facet name="header">Ação</f:facet>
 									<h:form>
-										<h:commandLink value="Alterar" action="#{usuarioBean.exibirTelaAlterarUsuario(usuario.id)}" />
+										<h:commandLink value="Alterar" action="#{grupoBean.exibirTelaAlterarGrupo(grupo.id)}" />
 									</h:form>				 
 									<h:form>
-										<h:commandLink value="Excluir" action="#{usuarioBean.excluirUsuario(usuario)}" />
+										<h:commandLink value="Excluir" action="#{grupoBean.excluirGrupo(grupo)}" />
 									</h:form>		
 								</h:column>			
 							</h:dataTable>

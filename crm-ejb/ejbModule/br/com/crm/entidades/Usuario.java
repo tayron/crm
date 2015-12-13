@@ -2,6 +2,9 @@ package br.com.crm.entidades;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -22,6 +25,14 @@ public class Usuario extends Pessoa{
 	 */
 	@Column(name="senha", nullable=false, length=6)
 	private String senha;
+	
+	/**
+	 * Descreve o relacionamento com um grupo, onde
+	 * um usuário pertence a um grupo.
+	 */
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="grupo_id", nullable=false)
+	private Grupo grupo;
 
 	/**
 	 * @return the login
@@ -49,5 +60,19 @@ public class Usuario extends Pessoa{
 	 */
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	/**
+	 * @return the grupo
+	 */
+	public Grupo getGrupo() {
+		return grupo;
+	}
+
+	/**
+	 * @param grupo the grupo to set
+	 */
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
 	}
 }
