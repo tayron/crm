@@ -2,14 +2,17 @@ package br.com.crm.beans;
 
 import java.util.List;
 
-import br.com.crm.dtos.UsuarioDTO;
+import br.com.crm.modelos.Usuario;
 
+/**
+ * Interface que define os métodos a serem implementados pelo UsuarioBean
+ */
 public interface IUsuarioBean {
 
 	/**
 	 * Método que busca todos os usuários cadastrados
 	 */
-	public List<UsuarioDTO> listarUsuarios();
+	public List<Usuario> listarUsuarios();
 	
 	/**
 	 * Método que insere um novo usuário no banco de dados
@@ -29,5 +32,5 @@ public interface IUsuarioBean {
 	/**
 	 * Método que exclui os dados do usuário no banco
 	 */
-	public void excluirUsuario(UsuarioDTO id);	
+	public void excluirUsuario(Usuario id);	
 }

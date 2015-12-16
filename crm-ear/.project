@@ -3,8 +3,8 @@
 	<name>crm-ear</name>
 	<comment></comment>
 	<projects>
-		<project>crm-jsf</project>
 		<project>crm-ejb</project>
+		<project>crm-jsf</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

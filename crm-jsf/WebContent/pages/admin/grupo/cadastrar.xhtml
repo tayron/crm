@@ -34,14 +34,14 @@
 				                <!-- form start -->
 				                	<h:messages id="messages" showDetail="true" autoUpdate="true"/>
 									<h:form role="form">
-										<h:inputHidden id="id" name="id" value="#{grupoBean.grupoDTO.id}" />
+										<h:inputHidden id="id" name="id" value="#{grupoBean.grupo.id}" />
 										
 					                    <div class="box-body">
 										    <div class="row">
 										        <div class="col-xs-12">
 													<div class="form-group">
 														<h:outputLabel for="nome" value="Nome: " />					
-										        		<h:inputText id="nome" name="nome" value="#{grupoBean.grupoDTO.nome}" label="Nome" required="true" maxlength="45" class="form-control">
+										        		<h:inputText id="nome" name="nome" value="#{grupoBean.grupo.nome}" label="Nome" required="true" maxlength="45" class="form-control">
 										        			<f:validateLength maximum="45" />
 										        		</h:inputText>	        		
 										        		<h:message for="nome" style="color:red" />

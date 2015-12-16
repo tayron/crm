@@ -2,14 +2,17 @@ package br.com.crm.beans;
 
 import java.util.List;
 
-import br.com.crm.dtos.GrupoDTO;
+import br.com.crm.modelos.Grupo;
 
+/**
+ * Interface que define os métodos a serem implementados pelo GrupoBean
+ */
 public interface IGrupoBean {
 
 	/**
 	 * Método que busca todos os grupos cadastrados
 	 */
-	public List<GrupoDTO> listarGrupos();
+	public List<Grupo> listarGrupos();
 	
 	/**
 	 * Método que insere um novo grupo no banco de dados
@@ -29,5 +32,5 @@ public interface IGrupoBean {
 	/**
 	 * Método que exclui os dados do grupo no banco
 	 */
-	public void excluirGrupo(GrupoDTO id);	
+	public void excluirGrupo(Grupo id);	
 }

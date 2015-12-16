@@ -1,6 +1,6 @@
 package br.com.crm.dtos;
 
-import br.com.crm.entidades.Grupo;
+
 
 
 /**
@@ -26,7 +26,7 @@ public class UsuarioDTO extends PessoaDTO {
 	 * Descreve o relacionamento com um grupo, onde
 	 * um usuário pertence a um grupo.
 	 */	
-	private Grupo grupo;
+	private GrupoDTO grupoDTO;
 	
 	/**
 	 * Armazena a senha de confirmação do usuário
@@ -78,14 +78,14 @@ public class UsuarioDTO extends PessoaDTO {
 	/**
 	 * @return the grupo
 	 */
-	public Grupo getGrupo() {
-		return grupo;
+	public GrupoDTO getGrupoDTO() {
+		return grupoDTO;
 	}
 
 	/**
 	 * @param grupo the grupo to set
 	 */
-	public void setGrupo(Grupo grupo) {
-		this.grupo = grupo;
+	public void setGrupoDTO(GrupoDTO grupoDTO) {
+		this.grupoDTO = grupoDTO;
 	}
 }

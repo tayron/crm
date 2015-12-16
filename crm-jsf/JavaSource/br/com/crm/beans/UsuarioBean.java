@@ -1,7 +1,9 @@
 package br.com.crm.beans;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -11,6 +13,8 @@ import br.com.crm.dtos.GrupoDTO;
 import br.com.crm.dtos.UsuarioDTO;
 import br.com.crm.enuns.TipoMensagem;
 import br.com.crm.excecoes.ExcecaoServico;
+import br.com.crm.modelos.Grupo;
+import br.com.crm.modelos.Usuario;
 import br.com.crm.servicos.IServicoGrupo;
 import br.com.crm.servicos.IServicoUsuario;
 import br.com.crm.utils.Mensagem;
@@ -37,20 +41,30 @@ public class UsuarioBean implements IUsuarioBean {
 	/**
 	 * Objeto DTO que representa os dados do usuário
 	 */
-	private UsuarioDTO usuarioDTO;
+	private Usuario usuario;
 	
 	/**
 	 * Objeto DTO que representa os dados do grupo
 	 */
-	private List<GrupoDTO> gruposDTO;
+	@SuppressWarnings("rawtypes")
+	private Map grupos;
 	
 	/**
-	 * Método que carrega uma lista de grupos de usuários
+	 * Método que carrega uma lista de grupos de usuários 
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void carregarGruposDeUsuario(){
 		Mensagem mensagem = new Mensagem();
 		try {
-			gruposDTO = servicoGrupo.listar();
+			List<GrupoDTO> gruposDTO =  servicoGrupo.listar();
+			grupos = new HashMap();
+			
+			for(GrupoDTO grupoDTO : gruposDTO){
+				Grupo grupo = new Grupo();
+				grupo.setId(grupoDTO.getId());
+				grupo.setNome(grupoDTO.getNome());
+				grupos.put(grupo.getNome(), grupo);
+			}
 			
 			if(gruposDTO.size() == 0){
 				mensagem.exibirAviso("Erro", "Não foi possível carregar a lista de grupos");								
@@ -64,10 +78,23 @@ public class UsuarioBean implements IUsuarioBean {
 	 * @see IUsuarioBean#listarUsuarios()
 	 */
 	@Override
-	public List<UsuarioDTO> listarUsuarios(){
-		List<UsuarioDTO> listaUsuarios = new ArrayList<UsuarioDTO>();
+	public List<Usuario> listarUsuarios(){
+		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 		try {
-			listaUsuarios = servicoUsuario.listar();
+			List<UsuarioDTO> usuariosDTO = servicoUsuario.listar();
+			
+			for(UsuarioDTO usuarioDTO : usuariosDTO){
+				Usuario usuario = new Usuario();
+				usuario.setId(usuarioDTO.getId());
+				usuario.setNome(usuario.getNome());
+				usuario.setLogin(usuarioDTO.getLogin());
+				usuario.setCpf(usuarioDTO.getCpf());
+				usuario.setEndereco(usuarioDTO.getEndereco());
+				usuario.setAtivo(usuarioDTO.getAtivo());
+				
+				listaUsuarios.add(usuario);
+			}
+			
 		} catch (ExcecaoServico e) {
 			e.printStackTrace();
 		}
@@ -81,7 +108,23 @@ public class UsuarioBean implements IUsuarioBean {
 	public void cadastrarDadosDoUsuario() {
 		Mensagem mensagem = new Mensagem();
 		try {
+			UsuarioDTO usuarioDTO = new UsuarioDTO();
+			usuarioDTO.setNome(usuario.getNome());
+			usuarioDTO.setAtivo(usuario.getAtivo());
+			usuarioDTO.setLogin(usuario.getLogin());
+			usuarioDTO.setSenha(usuario.getSenha());
+			usuarioDTO.setConfirmaSenha(usuario.getConfirmaSenha());
+			usuarioDTO.setCpf(usuario.getCpf());
+			usuarioDTO.setEndereco(usuario.getEndereco());
+			
+			GrupoDTO grupoDTO = new GrupoDTO();
+			grupoDTO.setId(usuario.getGrupo().getId());
+			grupoDTO.setNome(usuario.getGrupo().getNome());
+			
+			usuarioDTO.setGrupoDTO(grupoDTO);
+			
 			servicoUsuario.incluir(usuarioDTO);
+			
 			mensagem.exibirAviso("Sucesso", TipoMensagem.CADASTRO_SUCESSO.getDescricao());
 			usuarioDTO = null;
 		} catch (ExcecaoServico e) {			
@@ -109,8 +152,23 @@ public class UsuarioBean implements IUsuarioBean {
 	private boolean buscarDadosUsuario(String id){
 		UsuarioDTO parametros = new UsuarioDTO();
 		parametros.setId(Integer.parseInt(id));
+		
 		try {
-			usuarioDTO = servicoUsuario.recuperar(parametros);
+			UsuarioDTO usuarioDTO = servicoUsuario.recuperar(parametros);
+			usuario = new Usuario();
+			usuario.setId(usuarioDTO.getId());
+			usuario.setAtivo(usuarioDTO.getAtivo());
+			usuario.setCpf(usuarioDTO.getCpf());
+			usuario.setEndereco(usuarioDTO.getEndereco());
+			usuario.setLogin(usuarioDTO.getLogin());
+			usuario.setNome(usuarioDTO.getNome());			
+			
+			Grupo grupo = new Grupo();
+			grupo.setId(usuarioDTO.getGrupoDTO().getId());
+			grupo.setNome(usuarioDTO.getGrupoDTO().getNome());
+			
+			usuario.setGrupo(grupo);
+			
 			return true;
 		} catch (ExcecaoServico e) {
 			return false;
@@ -124,6 +182,22 @@ public class UsuarioBean implements IUsuarioBean {
 	public void alterarDadosDoUsuario() {
 		Mensagem mensagem = new Mensagem();
 		try {
+			UsuarioDTO usuarioDTO = new UsuarioDTO();
+			usuarioDTO.setId(usuario.getId());
+			usuarioDTO.setNome(usuario.getNome());
+			usuarioDTO.setAtivo(usuario.getAtivo());
+			usuarioDTO.setLogin(usuario.getLogin());
+			usuarioDTO.setSenha(usuario.getSenha());
+			usuarioDTO.setConfirmaSenha(usuario.getConfirmaSenha());
+			usuarioDTO.setCpf(usuario.getCpf());
+			usuarioDTO.setEndereco(usuario.getEndereco());
+			
+			GrupoDTO grupoDTO = new GrupoDTO();
+			grupoDTO.setId(usuario.getGrupo().getId());
+			grupoDTO.setNome(usuario.getGrupo().getNome());
+			
+			usuarioDTO.setGrupoDTO(grupoDTO);
+			
 			servicoUsuario.alterar(usuarioDTO);
 			mensagem.exibirAviso("Sucesso", TipoMensagem.SALVO_SUCESSO.getDescricao());
 		} catch (ExcecaoServico e) {			
@@ -132,44 +206,60 @@ public class UsuarioBean implements IUsuarioBean {
 	}
 	
 	/**
-	 * @see IUsuarioBean#excluirUsuario(UsuarioDTO)
+	 * @see IUsuarioBean#excluirUsuario(Usuario)
 	 */
 	@Override
-	public void excluirUsuario(UsuarioDTO usuarioDTO){
+	public void excluirUsuario(Usuario usuario){
 		Mensagem mensagem = new Mensagem();
 		try {
+			UsuarioDTO usuarioDTO = new UsuarioDTO();
+			usuarioDTO.setId(usuario.getId());
+			
 			servicoUsuario.excluir(usuarioDTO);
 			mensagem.exibirAviso("Sucesso", TipoMensagem.EXCLUIDO_SUCESSO.getDescricao());
 		} catch (ExcecaoServico e) {			
 			mensagem.exibirAviso("Erro", TipoMensagem.EXCLUIDO_ERRO.getDescricao());
 		}		
 	}
-
+	
 	/**
-	 * @return the usuarioDTO
+	 * Método que retorna um grupo através de seu nome
 	 */
-	public UsuarioDTO getUsuarioDTO() {
-		return usuarioDTO;
+	public Grupo getGrupoPorNome(String nome){
+		this.carregarGruposDeUsuario();
+		return (Grupo) grupos.get(nome);		
 	}
 
 	/**
-	 * @param usuarioDTO the usuarioDTO to set
+	 * @return the usuario
 	 */
-	public void setUsuarioDTO(UsuarioDTO usuarioDTO) {
-		this.usuarioDTO = usuarioDTO;
+	public Usuario getUsuario() {
+		if(usuario == null){
+			usuario = new Usuario();
+		}
+		return usuario;
 	}
 
 	/**
-	 * @return the gruposDTO
+	 * @param usuario the usuario to set
 	 */
-	public List<GrupoDTO> getGruposDTO() {
-		return gruposDTO;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	/**
-	 * @param gruposDTO the gruposDTO to set
+	 * @return the grupos
 	 */
-	public void setGruposDTO(List<GrupoDTO> gruposDTO) {
-		this.gruposDTO = gruposDTO;
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List getGrupos() {
+		return new ArrayList(grupos.values());
+	}
+
+	/**
+	 * @param grupos the grupos to set
+	 */
+	@SuppressWarnings("rawtypes")
+	public void setGruposDTO(Map grupos) {
+		this.grupos = grupos;
 	}
 }

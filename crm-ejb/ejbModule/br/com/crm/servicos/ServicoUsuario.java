@@ -11,7 +11,9 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import br.com.crm.daos.UsuarioDAO;
+import br.com.crm.dtos.GrupoDTO;
 import br.com.crm.dtos.UsuarioDTO;
+import br.com.crm.entidades.Grupo;
 import br.com.crm.entidades.Usuario;
 import br.com.crm.excecoes.ExcecaoModelo;
 import br.com.crm.excecoes.ExcecaoServico;
@@ -53,6 +55,12 @@ public class ServicoUsuario implements IServicoUsuario{
 		usuario.setEndereco(usuarioDTO.getEndereco());		
 		usuario.setLogin(usuarioDTO.getLogin());
 		usuario.setAtivo(usuarioDTO.getAtivo());
+		
+		Grupo grupo = new Grupo();
+		grupo.setId(usuarioDTO.getGrupoDTO().getId());
+		grupo.setNome(usuarioDTO.getGrupoDTO().getNome());
+		
+		usuario.setGrupo(grupo);
 		
 		if(usuarioDTO.getSenha() != null && usuarioDTO.getSenha().equals(usuarioDTO.getConfirmaSenha())){
 			usuario.setSenha(usuarioDTO.getSenha());	
@@ -158,6 +166,15 @@ public class ServicoUsuario implements IServicoUsuario{
 		usuarioDTO.setEndereco(usuario.getEndereco());		
 		usuarioDTO.setLogin(usuario.getLogin());
 		usuarioDTO.setAtivo(usuario.getAtivo());
+		
+		GrupoDTO grupoDTO = new GrupoDTO();
+		
+		if(usuario.getGrupo() != null){
+			grupoDTO.setId(usuario.getGrupo().getId());
+			grupoDTO.setNome(usuario.getGrupo().getNome());
+		}
+		
+		usuarioDTO.setGrupoDTO(grupoDTO);
 		
 		return usuarioDTO;
 	}

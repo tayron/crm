@@ -10,6 +10,7 @@ import javax.faces.bean.RequestScoped;
 import br.com.crm.dtos.GrupoDTO;
 import br.com.crm.enuns.TipoMensagem;
 import br.com.crm.excecoes.ExcecaoServico;
+import br.com.crm.modelos.Grupo;
 import br.com.crm.servicos.IServicoGrupo;
 import br.com.crm.utils.Mensagem;
 
@@ -29,16 +30,24 @@ public class GrupoBean implements IGrupoBean {
 	/**
 	 * Objeto DTO que representa os dados do grupo
 	 */
-	private GrupoDTO grupoDTO;
+	private Grupo grupo;
 	
 	/** 
 	 * @see IGrupoBean#listarGrupos()
 	 */
 	@Override
-	public List<GrupoDTO> listarGrupos(){
-		List<GrupoDTO> listaGrupos = new ArrayList<GrupoDTO>();
+	public List<Grupo> listarGrupos(){
+		List<Grupo> listaGrupos = new ArrayList<Grupo>();
 		try {
-			listaGrupos = servicoGrupo.listar();
+			List<GrupoDTO>listaGruposDTO = servicoGrupo.listar();
+			
+			for(GrupoDTO grupoDTO : listaGruposDTO){
+				Grupo grupo = new Grupo();
+				grupo.setId(grupoDTO.getId());
+				grupo.setNome(grupoDTO.getNome());
+				
+				listaGrupos.add(grupo);
+			}
 		} catch (ExcecaoServico e) {
 			e.printStackTrace();
 		}
@@ -52,9 +61,14 @@ public class GrupoBean implements IGrupoBean {
 	public void cadastrarDadosDoGrupo() {
 		Mensagem mensagem = new Mensagem();
 		try {
+			GrupoDTO grupoDTO = new GrupoDTO();
+			grupoDTO.setId(grupo.getId());
+			grupoDTO.setNome(grupo.getNome());
+			
 			servicoGrupo.incluir(grupoDTO);
+			
 			mensagem.exibirAviso("Sucesso", TipoMensagem.CADASTRO_SUCESSO.getDescricao());
-			grupoDTO = null;
+			grupo = null;
 		} catch (ExcecaoServico e) {			
 			mensagem.exibirAviso("Erro", TipoMensagem.CADASTRO_ERRO.getDescricao());
 		}
@@ -78,10 +92,15 @@ public class GrupoBean implements IGrupoBean {
 	 * Método que busca os dados do grupo através do seu id
 	 */
 	private boolean buscarDadosGrupo(String id){
-		GrupoDTO parametros = new GrupoDTO();
-		parametros.setId(Integer.parseInt(id));
+		GrupoDTO grupoDTO = new GrupoDTO();
+		grupoDTO.setId(Integer.parseInt(id));
+		
 		try {
-			grupoDTO = servicoGrupo.recuperar(parametros);
+			grupoDTO = servicoGrupo.recuperar(grupoDTO);
+			grupo = new Grupo();
+			grupo.setId(grupoDTO.getId());
+			grupo.setNome(grupoDTO.getNome());
+			
 			return true;
 		} catch (ExcecaoServico e) {
 			return false;
@@ -95,7 +114,11 @@ public class GrupoBean implements IGrupoBean {
 	public void alterarDadosDoGrupo() {
 		Mensagem mensagem = new Mensagem();
 		try {
+			GrupoDTO grupoDTO = new GrupoDTO();
+			grupoDTO.setId(grupo.getId());
+			grupoDTO.setNome(grupo.getNome());			
 			servicoGrupo.alterar(grupoDTO);
+			
 			mensagem.exibirAviso("Sucesso", TipoMensagem.SALVO_SUCESSO.getDescricao());
 		} catch (ExcecaoServico e) {			
 			mensagem.exibirAviso("Erro", TipoMensagem.SALVO_ERRO.getDescricao());
@@ -103,13 +126,18 @@ public class GrupoBean implements IGrupoBean {
 	}
 	
 	/**
-	 * @see IGrupoBean#excluirGrupo(GrupoDTO)
+	 * @see IGrupoBean#excluirGrupo(Grupo)
 	 */
 	@Override
-	public void excluirGrupo(GrupoDTO grupoDTO){
+	public void excluirGrupo(Grupo grupo){
 		Mensagem mensagem = new Mensagem();
+		
+		GrupoDTO grupoDTO = new GrupoDTO();
+		grupoDTO.setId(grupo.getId());
+		
 		try {
 			servicoGrupo.excluir(grupoDTO);
+			
 			mensagem.exibirAviso("Sucesso", TipoMensagem.EXCLUIDO_SUCESSO.getDescricao());
 		} catch (ExcecaoServico e) {			
 			mensagem.exibirAviso("Erro", TipoMensagem.EXCLUIDO_ERRO.getDescricao());
@@ -117,20 +145,20 @@ public class GrupoBean implements IGrupoBean {
 	}
 	
 	/**
-	 * @return the grupoDTO
+	 * @return the grupo
 	 */
-	public GrupoDTO getGrupoDTO() {
-		if(grupoDTO == null){
-			grupoDTO = new GrupoDTO();
+	public Grupo getGrupo() {
+		if(grupo == null){
+			grupo = new Grupo();
 		}
-		return grupoDTO;
+		return grupo;
 	}
 
 	/**
-	 * @param grupoDTO the grupoDTO to set
+	 * @param grupo the grupo to set
 	 */
-	public void setGrupoDTO(GrupoDTO grupoDTO) {
-		this.grupoDTO = grupoDTO;
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
 	}
 	
 	/**
