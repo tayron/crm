@@ -46,7 +46,7 @@
 										        <div class="col-xs-6">
 													<div class="form-group">
 														<h:outputLabel for="grupo" value="Grupo de usuário: " />														
-														<h:selectOneMenu value="#{usuarioBean.usuario.grupo}">
+														<h:selectOneMenu value="#{usuarioBean.usuario.grupo}" class="form-control">
 															<f:selectItems value="#{usuarioBean.grupos}"/>
 															<f:converter converterId="grupoConverter"/>
 														</h:selectOneMenu>													

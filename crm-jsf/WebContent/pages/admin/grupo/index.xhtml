@@ -43,6 +43,10 @@
 								
 							<h:dataTable value="#{grupoBean.listarGrupos()}" var="grupo" class="table table-hover">
 								<h:column>				
+									<f:facet name="header">Id</f:facet>    				
+									#{grupo.id}
+								</h:column>							
+								<h:column>				
 									<f:facet name="header">Nome</f:facet>    				
 									#{grupo.nome}
 								</h:column>

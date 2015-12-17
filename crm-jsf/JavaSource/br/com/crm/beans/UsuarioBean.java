@@ -86,11 +86,17 @@ public class UsuarioBean implements IUsuarioBean {
 			for(UsuarioDTO usuarioDTO : usuariosDTO){
 				Usuario usuario = new Usuario();
 				usuario.setId(usuarioDTO.getId());
-				usuario.setNome(usuario.getNome());
+				usuario.setNome(usuarioDTO.getNome());
 				usuario.setLogin(usuarioDTO.getLogin());
 				usuario.setCpf(usuarioDTO.getCpf());
 				usuario.setEndereco(usuarioDTO.getEndereco());
 				usuario.setAtivo(usuarioDTO.getAtivo());
+				
+				Grupo grupo = new Grupo();
+				grupo.setId(usuarioDTO.getGrupoDTO().getId());
+				grupo.setNome(usuarioDTO.getGrupoDTO().getNome());
+				
+				usuario.setGrupo(grupo);
 				
 				listaUsuarios.add(usuario);
 			}

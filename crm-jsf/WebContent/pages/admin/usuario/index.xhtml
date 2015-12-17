@@ -43,9 +43,17 @@
 								
 							<h:dataTable value="#{usuarioBean.listarUsuarios()}" var="usuario" class="table table-hover">
 								<h:column>				
+									<f:facet name="header">Id</f:facet>    				
+									#{usuario.id}
+								</h:column>							
+								<h:column>				
 									<f:facet name="header">Nome</f:facet>    				
 									#{usuario.nome}
 								</h:column>
+								<h:column>				
+									<f:facet name="header">Grupo</f:facet>    				
+									#{usuario.grupo.nome}
+								</h:column>								
 								<h:column>
 									<f:facet name="header">Login</f:facet>
 									#{usuario.login}

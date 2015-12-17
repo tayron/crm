@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import br.com.crm.daos.GrupoDAO;
 import br.com.crm.daos.UsuarioDAO;
 import br.com.crm.dtos.GrupoDTO;
 import br.com.crm.dtos.UsuarioDTO;
@@ -35,6 +36,11 @@ public class ServicoUsuario implements IServicoUsuario{
 	 * Armazena o UsuarioDAO para manipulacao dos dados do usuário
 	 */
 	UsuarioDAO usuarioDAO;
+
+	/**
+	 * Armazena o GrupoDAO para manipulacao dos dados do grupo
+	 */	
+	GrupoDAO grupoDAO;
 	
 	/**
 	 * Busca o dao usuário no repositório e armazena em usuarioDAO
@@ -42,6 +48,7 @@ public class ServicoUsuario implements IServicoUsuario{
 	@PostConstruct
 	public void initialize(){
 		usuarioDAO = daoRepotorio.getUsuario();
+		grupoDAO = daoRepotorio.getGrupo();
 	}
 	
 	/**
@@ -58,13 +65,16 @@ public class ServicoUsuario implements IServicoUsuario{
 		
 		Grupo grupo = new Grupo();
 		grupo.setId(usuarioDTO.getGrupoDTO().getId());
-		grupo.setNome(usuarioDTO.getGrupoDTO().getNome());
 		
-		usuario.setGrupo(grupo);
+		try {
+			usuario.setGrupo(grupoDAO.recuperar(grupo));
+		} catch (ExcecaoModelo e1) {
+			new ExcecaoServico("Não foi possível vincular o grupo selecionado ao novo usuário");
+		}
 		
-		if(usuarioDTO.getSenha() != null && usuarioDTO.getSenha().equals(usuarioDTO.getConfirmaSenha())){
+		if(usuarioDTO.getSenha().equals(usuarioDTO.getConfirmaSenha())){
 			usuario.setSenha(usuarioDTO.getSenha());	
-		}else if(usuarioDTO.getSenha() != null && !usuarioDTO.getSenha().equals(usuarioDTO.getConfirmaSenha())){
+		}else{
 			new ExcecaoServico("O valor do campo confirmar senha está diferente do campo senha");
 		}
 		
@@ -91,9 +101,18 @@ public class ServicoUsuario implements IServicoUsuario{
 			usuario.setLogin(usuarioDTO.getLogin());
 			usuario.setNome(usuarioDTO.getNome());
 			
-			if(usuarioDTO.getSenha() != null && usuarioDTO.getSenha().equals(usuarioDTO.getConfirmaSenha())){
+			Grupo grupo = new Grupo();
+			grupo.setId(usuarioDTO.getGrupoDTO().getId());
+			
+			try {
+				usuario.setGrupo(grupoDAO.recuperar(grupo));
+			} catch (ExcecaoModelo e1) {
+				new ExcecaoServico("Não foi possível vincular o grupo selecionado ao novo usuário");
+			}			
+			
+			if(usuarioDTO.getSenha() != "" && usuarioDTO.getSenha().equals(usuarioDTO.getConfirmaSenha())){
 				usuario.setSenha(usuarioDTO.getSenha());	
-			}else if(usuarioDTO.getSenha() != null && !usuarioDTO.getSenha().equals(usuarioDTO.getConfirmaSenha())){
+			}else if(usuarioDTO.getSenha() != "" && !usuarioDTO.getSenha().equals(usuarioDTO.getConfirmaSenha())){
 				new ExcecaoServico("O valor do campo confirmar senha está diferente do campo senha");
 			}
 			

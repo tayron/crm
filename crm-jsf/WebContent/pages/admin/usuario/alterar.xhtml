@@ -46,8 +46,8 @@
 										        <div class="col-xs-6">
 													<div class="form-group">
 														<h:outputLabel for="grupo" value="Grupo de usuário: " />														
-														<h:selectOneMenu value="#{usuarioBean.usuario.grupo}">
-															<f:selectItems value="#{usuarioBean.grupos}"/>
+														<h:selectOneMenu value="#{usuarioBean.usuario.grupo}" class="form-control">
+															<f:selectItems value="#{usuarioBean.grupos}"/>															
 															<f:converter converterId="grupoConverter"/>
 														</h:selectOneMenu>													
 									        		</div>										        
@@ -86,16 +86,16 @@
 										        <div class="col-xs-6">
 							        			    <div class="form-group">
 														<h:outputLabel for="senha" value="Senha: " />
-										        		<h:inputText id="senha" name="senha" value="#{usuarioBean.usuario.senha}" label="Senha" required="true" maxlength="6" class="form-control">
-										        			<f:validateLength minimum="6" maximum="6" />
+										        		<h:inputText id="senha" name="senha" value="#{usuarioBean.usuario.senha}" label="Senha" maxlength="6" class="form-control">
+										        			<f:validateLength maximum="6" />
 										        		</h:inputText>
 										        		<h:message for="senha" style="color:red" />
 									        		</div>
 								
 													<div class="form-group">
 									 					<h:outputLabel for="confirmarSenha" value="Confirmar senha: " />
-										        		<h:inputText id="confirmarSenha" name="confirmarSenha" value="#{usuarioBean.usuario.confirmaSenha}" label="Confirmar senha" required="true" maxlength="6" class="form-control">
-										        			<f:validateLength minimum="6" maximum="6" />
+										        		<h:inputText id="confirmarSenha" name="confirmarSenha" value="#{usuarioBean.usuario.confirmaSenha}" label="Confirmar senha" maxlength="6" class="form-control">
+										        			<f:validateLength maximum="6" />
 										        		</h:inputText>	 
 										        		<h:message for="confirmarSenha" style="color:red" />
 									        		</div>
