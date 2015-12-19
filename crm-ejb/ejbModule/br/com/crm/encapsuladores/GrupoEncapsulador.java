@@ -1,20 +1,30 @@
-package br.com.crm.dtos;
+package br.com.crm.encapsuladores;
 
 /**
  * Método que representa os dados de um grupo
  */
-public class GrupoDTO extends DTOAbstrato{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class GrupoEncapsulador extends EncapsuladorAbstrato{
 	
 	/**
 	 * Armazena o nome do grupo 
 	 */
 	private String nome;
+	
+	/**
+	 * Construtor padrão
+	 */
+	public GrupoEncapsulador() {
 
+	}
+	
+	/**
+	 * Construtor com parametros
+	 */
+	public GrupoEncapsulador(Integer id, String nome) {
+		this.id = id;
+		this.nome = nome;
+	}	
+	
 	/**
 	 * @return the nome
 	 */

@@ -9,12 +9,14 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import br.com.crm.dtos.GrupoDTO;
-import br.com.crm.dtos.UsuarioDTO;
+import br.com.crm.encapsuladores.GrupoEncapsulador;
+import br.com.crm.encapsuladores.UsuarioEncapsulador;
+import br.com.crm.encapsuladores.UsuarioInformacaoEncapsulador;
 import br.com.crm.enuns.TipoMensagem;
 import br.com.crm.excecoes.ExcecaoServico;
 import br.com.crm.modelos.Grupo;
 import br.com.crm.modelos.Usuario;
+import br.com.crm.modelos.UsuarioInformacao;
 import br.com.crm.servicos.IServicoGrupo;
 import br.com.crm.servicos.IServicoUsuario;
 import br.com.crm.utils.Mensagem;
@@ -39,10 +41,15 @@ public class UsuarioBean implements IUsuarioBean {
 	private IServicoGrupo servicoGrupo;
 	
 	/**
-	 * Objeto DTO que representa os dados do usuário
+	 * Objeto que representa os dados do usuário
 	 */
 	private Usuario usuario;
 	
+	/**
+	 * Objeto que representa as informações do usuário
+	 */
+	private UsuarioInformacao usuarioInformacao;
+
 	/**
 	 * Objeto DTO que representa os dados do grupo
 	 */
@@ -50,16 +57,17 @@ public class UsuarioBean implements IUsuarioBean {
 	private Map grupos;
 	
 	/**
-	 * Método que carrega uma lista de grupos de usuários 
+	 *  @see IUsuarioBean#carregarGruposDeUsuario()
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
 	public void carregarGruposDeUsuario(){
 		Mensagem mensagem = new Mensagem();
 		try {
-			List<GrupoDTO> gruposDTO =  servicoGrupo.listar();
+			List<GrupoEncapsulador> gruposDTO =  servicoGrupo.listar();
 			grupos = new HashMap();
 			
-			for(GrupoDTO grupoDTO : gruposDTO){
+			for(GrupoEncapsulador grupoDTO : gruposDTO){
 				Grupo grupo = new Grupo();
 				grupo.setId(grupoDTO.getId());
 				grupo.setNome(grupoDTO.getNome());
@@ -81,9 +89,9 @@ public class UsuarioBean implements IUsuarioBean {
 	public List<Usuario> listarUsuarios(){
 		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 		try {
-			List<UsuarioDTO> usuariosDTO = servicoUsuario.listar();
+			List<UsuarioEncapsulador> usuariosDTO = servicoUsuario.listar();
 			
-			for(UsuarioDTO usuarioDTO : usuariosDTO){
+			for(UsuarioEncapsulador usuarioDTO : usuariosDTO){
 				Usuario usuario = new Usuario();
 				usuario.setId(usuarioDTO.getId());
 				usuario.setNome(usuarioDTO.getNome());
@@ -114,7 +122,7 @@ public class UsuarioBean implements IUsuarioBean {
 	public void cadastrarDadosDoUsuario() {
 		Mensagem mensagem = new Mensagem();
 		try {
-			UsuarioDTO usuarioDTO = new UsuarioDTO();
+			UsuarioEncapsulador usuarioDTO = new UsuarioEncapsulador();
 			usuarioDTO.setNome(usuario.getNome());
 			usuarioDTO.setAtivo(usuario.getAtivo());
 			usuarioDTO.setLogin(usuario.getLogin());
@@ -123,7 +131,7 @@ public class UsuarioBean implements IUsuarioBean {
 			usuarioDTO.setCpf(usuario.getCpf());
 			usuarioDTO.setEndereco(usuario.getEndereco());
 			
-			GrupoDTO grupoDTO = new GrupoDTO();
+			GrupoEncapsulador grupoDTO = new GrupoEncapsulador();
 			grupoDTO.setId(usuario.getGrupo().getId());
 			grupoDTO.setNome(usuario.getGrupo().getNome());
 			
@@ -139,28 +147,14 @@ public class UsuarioBean implements IUsuarioBean {
 	}
 	
 	/**
-	 * @see IUsuarioBean#exibirTelaAlterarUsuario(String) 
-	 */
-	@Override
-	public String exibirTelaAlterarUsuario(String id) {
-		if(buscarDadosUsuario(id)){
-			return "alterar";
-		}else{
-			Mensagem mensagem = new Mensagem();
-			mensagem.exibirAviso("Erro", "Não foi possível recuperar os dados do usuário");
-			return "index";
-		}
-	}	
-	
-	/**
 	 * Método que busca os dados do usuário através do seu id
 	 */
 	private boolean buscarDadosUsuario(String id){
-		UsuarioDTO parametros = new UsuarioDTO();
+		UsuarioEncapsulador parametros = new UsuarioEncapsulador();
 		parametros.setId(Integer.parseInt(id));
 		
 		try {
-			UsuarioDTO usuarioDTO = servicoUsuario.recuperar(parametros);
+			UsuarioEncapsulador usuarioDTO = servicoUsuario.recuperar(parametros);
 			usuario = new Usuario();
 			usuario.setId(usuarioDTO.getId());
 			usuario.setAtivo(usuarioDTO.getAtivo());
@@ -188,7 +182,7 @@ public class UsuarioBean implements IUsuarioBean {
 	public void alterarDadosDoUsuario() {
 		Mensagem mensagem = new Mensagem();
 		try {
-			UsuarioDTO usuarioDTO = new UsuarioDTO();
+			UsuarioEncapsulador usuarioDTO = new UsuarioEncapsulador();
 			usuarioDTO.setId(usuario.getId());
 			usuarioDTO.setNome(usuario.getNome());
 			usuarioDTO.setAtivo(usuario.getAtivo());
@@ -198,7 +192,7 @@ public class UsuarioBean implements IUsuarioBean {
 			usuarioDTO.setCpf(usuario.getCpf());
 			usuarioDTO.setEndereco(usuario.getEndereco());
 			
-			GrupoDTO grupoDTO = new GrupoDTO();
+			GrupoEncapsulador grupoDTO = new GrupoEncapsulador();
 			grupoDTO.setId(usuario.getGrupo().getId());
 			grupoDTO.setNome(usuario.getGrupo().getNome());
 			
@@ -218,7 +212,7 @@ public class UsuarioBean implements IUsuarioBean {
 	public void excluirUsuario(Usuario usuario){
 		Mensagem mensagem = new Mensagem();
 		try {
-			UsuarioDTO usuarioDTO = new UsuarioDTO();
+			UsuarioEncapsulador usuarioDTO = new UsuarioEncapsulador();
 			usuarioDTO.setId(usuario.getId());
 			
 			servicoUsuario.excluir(usuarioDTO);
@@ -227,6 +221,49 @@ public class UsuarioBean implements IUsuarioBean {
 			mensagem.exibirAviso("Erro", TipoMensagem.EXCLUIDO_ERRO.getDescricao());
 		}		
 	}
+	
+	/**
+	 * @see IUsuarioBean#exibirTelaAlterarUsuario(String) 
+	 */
+	@Override
+	public String exibirTelaAlterarUsuario(String id) {
+		if(buscarDadosUsuario(id)){
+			return "alterar";
+		}else{
+			Mensagem mensagem = new Mensagem();
+			mensagem.exibirAviso("Erro", "Não foi possível recuperar os dados do usuário");
+			return "index";
+		}
+	}	
+	
+	/**
+	 * @see IUsuarioBean#exibirTelaInformacaoUsuario(String) 
+	 */	
+	@Override
+	public String exibirTelaInformacaoUsuario(String id) {
+		UsuarioEncapsulador usuario = new UsuarioEncapsulador();
+		usuario.setId(Integer.parseInt(id));
+		
+		UsuarioInformacaoEncapsulador informacaoUsuario;
+		try {
+			informacaoUsuario = servicoUsuario.getInformacaoUsuario(usuario);
+			
+			usuarioInformacao = new UsuarioInformacao();			
+			usuarioInformacao.setNome(informacaoUsuario.getNome());
+			usuarioInformacao.setCpf(informacaoUsuario.getCpf());
+			usuarioInformacao.setEndereco(informacaoUsuario.getEndereco());
+			usuarioInformacao.setNomeGrupo(informacaoUsuario.getNomeGrupo());
+			usuarioInformacao.setLogin(informacaoUsuario.getLogin());
+			usuarioInformacao.setStatus(informacaoUsuario.getStatus());
+			
+			return "informacao";
+			
+		} catch (ExcecaoServico e) {
+			Mensagem mensagem = new Mensagem();
+			mensagem.exibirAviso("Erro", "Não foi possível recuperar os dados do usuário");
+			return "index";
+		}
+	}	
 	
 	/**
 	 * Método que retorna um grupo através de seu nome
@@ -252,6 +289,20 @@ public class UsuarioBean implements IUsuarioBean {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	
+	/**
+	 * @return the usuarioInformacao
+	 */
+	public UsuarioInformacao getUsuarioInformacao() {
+		return usuarioInformacao;
+	}
+
+	/**
+	 * @param usuarioInformacao the usuarioInformacao to set
+	 */
+	public void setUsuarioInformacao(UsuarioInformacao usuarioInformacao) {
+		this.usuarioInformacao = usuarioInformacao;
+	}	
 
 	/**
 	 * @return the grupos

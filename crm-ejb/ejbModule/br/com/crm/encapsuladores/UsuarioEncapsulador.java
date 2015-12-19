@@ -1,16 +1,10 @@
-package br.com.crm.dtos;
-
-
+package br.com.crm.encapsuladores;
 
 
 /**
  * Método que representa os dados de uma entidade Usuario
  */
-public class UsuarioDTO extends PessoaDTO {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class UsuarioEncapsulador extends PessoaEncapsulador {
 
 	/**
 	 * Armazena o login do usuário 
@@ -26,7 +20,7 @@ public class UsuarioDTO extends PessoaDTO {
 	 * Descreve o relacionamento com um grupo, onde
 	 * um usuário pertence a um grupo.
 	 */	
-	private GrupoDTO grupoDTO;
+	private GrupoEncapsulador grupoDTO;
 	
 	/**
 	 * Armazena a senha de confirmação do usuário
@@ -78,14 +72,14 @@ public class UsuarioDTO extends PessoaDTO {
 	/**
 	 * @return the grupo
 	 */
-	public GrupoDTO getGrupoDTO() {
+	public GrupoEncapsulador getGrupoDTO() {
 		return grupoDTO;
 	}
 
 	/**
 	 * @param grupo the grupo to set
 	 */
-	public void setGrupoDTO(GrupoDTO grupoDTO) {
+	public void setGrupoDTO(GrupoEncapsulador grupoDTO) {
 		this.grupoDTO = grupoDTO;
 	}
 }

@@ -12,8 +12,9 @@ import javax.ejb.Stateless;
 
 import br.com.crm.daos.GrupoDAO;
 import br.com.crm.daos.UsuarioDAO;
-import br.com.crm.dtos.GrupoDTO;
-import br.com.crm.dtos.UsuarioDTO;
+import br.com.crm.encapsuladores.GrupoEncapsulador;
+import br.com.crm.encapsuladores.UsuarioEncapsulador;
+import br.com.crm.encapsuladores.UsuarioInformacaoEncapsulador;
 import br.com.crm.entidades.Grupo;
 import br.com.crm.entidades.Usuario;
 import br.com.crm.excecoes.ExcecaoModelo;
@@ -52,10 +53,10 @@ public class ServicoUsuario implements IServicoUsuario{
 	}
 	
 	/**
-	 * @see IServicoUsuario#incluir(UsuarioDTO)
+	 * @see IServicoUsuario#incluir(UsuarioEncapsulador)
 	 */
 	@Override
-	public void incluir(UsuarioDTO usuarioDTO) throws ExcecaoServico {
+	public void incluir(UsuarioEncapsulador usuarioDTO) throws ExcecaoServico {
 		Usuario usuario = new Usuario();
 		usuario.setNome(usuarioDTO.getNome());
 		usuario.setCpf(usuarioDTO.getCpf());
@@ -86,10 +87,10 @@ public class ServicoUsuario implements IServicoUsuario{
 	}
 
 	/**
-	 * @see IServicoUsuario#alterar(UsuarioDTO)
+	 * @see IServicoUsuario#alterar(UsuarioEncapsulador)
 	 */
 	@Override
-	public void alterar(UsuarioDTO usuarioDTO) throws ExcecaoServico {
+	public void alterar(UsuarioEncapsulador usuarioDTO) throws ExcecaoServico {
 		Usuario usuario = new Usuario();
 		usuario.setId(usuarioDTO.getId());
 		
@@ -124,10 +125,10 @@ public class ServicoUsuario implements IServicoUsuario{
 	}
 
 	/**
-	 * @see IServicoUsuario#excluir(UsuarioDTO)
+	 * @see IServicoUsuario#excluir(UsuarioEncapsulador)
 	 */
 	@Override
-	public void excluir(UsuarioDTO usuarioDTO) throws ExcecaoServico {
+	public void excluir(UsuarioEncapsulador usuarioDTO) throws ExcecaoServico {
 		try {
 			Usuario usuario = new Usuario();
 			usuario.setId(usuarioDTO.getId());	
@@ -144,9 +145,9 @@ public class ServicoUsuario implements IServicoUsuario{
 	 * @see servico.IServicoUsuario#listar()
 	 */
 	@Override
-	public List<UsuarioDTO> listar() throws ExcecaoServico {		
+	public List<UsuarioEncapsulador> listar() throws ExcecaoServico {		
 		try {
-			List<UsuarioDTO> usuariosDTO = new ArrayList<UsuarioDTO>();
+			List<UsuarioEncapsulador> usuariosDTO = new ArrayList<UsuarioEncapsulador>();
 			List<Usuario> usuarios = usuarioDAO.listar();
 			
 			for(Usuario usuario : usuarios){				
@@ -161,10 +162,10 @@ public class ServicoUsuario implements IServicoUsuario{
 	}
 
 	/**
-	 * @see IServicoUsuario#recuperar(UsuarioDTO)
+	 * @see IServicoUsuario#recuperar(UsuarioEncapsulador)
 	 */
 	@Override
-	public UsuarioDTO recuperar(UsuarioDTO usuarioDTO) throws ExcecaoServico {
+	public UsuarioEncapsulador recuperar(UsuarioEncapsulador usuarioDTO) throws ExcecaoServico {
 		try {
 			Usuario usuario = new Usuario();
 			usuario.setId(usuarioDTO.getId());			
@@ -175,10 +176,28 @@ public class ServicoUsuario implements IServicoUsuario{
 	}	
 	
 	/**
+	 * @see IServicoUsuario#getInformacaoUsuario(UsuarioEncapsulador)
+	 */
+	@Override
+	public UsuarioInformacaoEncapsulador getInformacaoUsuario(
+			UsuarioEncapsulador usuario) {
+		
+		Usuario parametros = new Usuario();
+		parametros.setId(usuario.getId());
+		
+		try {
+			return usuarioDAO.getInformacaoUsuario(parametros);
+		} catch (ExcecaoModelo e) {
+			new ExcecaoServico("Não foi possível encontrar as informações do usuário.");
+		}
+		return null;
+	}	
+	
+	/**
 	 * Método que transforma uma entidade usuário em usuarioDTO
 	 */
-	private UsuarioDTO transformarUsuarioDTO(Usuario usuario){
-		UsuarioDTO usuarioDTO = new UsuarioDTO();
+	private UsuarioEncapsulador transformarUsuarioDTO(Usuario usuario){
+		UsuarioEncapsulador usuarioDTO = new UsuarioEncapsulador();
 		usuarioDTO.setId(usuario.getId());
 		usuarioDTO.setNome(usuario.getNome());
 		usuarioDTO.setCpf(usuario.getCpf());
@@ -186,7 +205,7 @@ public class ServicoUsuario implements IServicoUsuario{
 		usuarioDTO.setLogin(usuario.getLogin());
 		usuarioDTO.setAtivo(usuario.getAtivo());
 		
-		GrupoDTO grupoDTO = new GrupoDTO();
+		GrupoEncapsulador grupoDTO = new GrupoEncapsulador();
 		
 		if(usuario.getGrupo() != null){
 			grupoDTO.setId(usuario.getGrupo().getId());

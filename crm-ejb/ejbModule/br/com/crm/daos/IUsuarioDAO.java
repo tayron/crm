@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import br.com.crm.encapsuladores.UsuarioInformacaoEncapsulador;
 import br.com.crm.entidades.Usuario;
 import br.com.crm.excecoes.ExcecaoModelo;
 
@@ -41,4 +42,9 @@ public interface IUsuarioDAO {
 	 * Método que pesquisa por um usuário através de seu login e senha
 	 */
 	public Boolean consultar(String login, String senha)throws ExcecaoModelo;
+	
+	/**
+	 * Retorna os dados do usuário encapsulado
+	 */
+	public UsuarioInformacaoEncapsulador getInformacaoUsuario(Usuario usuario) throws ExcecaoModelo;
 }

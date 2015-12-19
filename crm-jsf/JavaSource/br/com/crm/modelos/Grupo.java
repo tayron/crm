@@ -1,12 +1,11 @@
 package br.com.crm.modelos;
 
-import br.com.crm.dtos.DTOAbstrato;
 
 
 /**
  * Método que representa os dados de um grupo
  */
-public class Grupo extends DTOAbstrato{
+public class Grupo extends ModeloAbstrato{
 
 	/**
 	 * 
@@ -17,7 +16,7 @@ public class Grupo extends DTOAbstrato{
 	 * Armazena o nome do grupo 
 	 */
 	private String nome;
-
+	
 	/**
 	 * @return the nome
 	 */

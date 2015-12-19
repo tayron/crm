@@ -1,10 +1,9 @@
 package br.com.crm.modelos;
 
-import br.com.crm.dtos.DTOAbstrato;
 
 
 
-public class Pessoa extends DTOAbstrato {
+public class Pessoa extends ModeloAbstrato {
 
 	/**
 	 * 

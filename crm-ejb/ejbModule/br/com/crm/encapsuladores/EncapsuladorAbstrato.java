@@ -1,22 +1,16 @@
-package br.com.crm.dtos;
+package br.com.crm.encapsuladores;
 
-import java.io.Serializable;
 
 /**
  * DTO Abstrato que possui o atributo id como padrão e implementa serializable 
  * para que o DTO possa ser transportado entre os projetos.
  */
-public class DTOAbstrato implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class EncapsuladorAbstrato{
 	
 	/**
 	 * Armazena o código de indentifição
 	 */
-	private Integer id;
+	protected Integer id;
 	
 	/**
 	 * @return the id

@@ -7,7 +7,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import br.com.crm.dtos.GrupoDTO;
+import br.com.crm.encapsuladores.GrupoEncapsulador;
 import br.com.crm.enuns.TipoMensagem;
 import br.com.crm.excecoes.ExcecaoServico;
 import br.com.crm.modelos.Grupo;
@@ -39,9 +39,9 @@ public class GrupoBean implements IGrupoBean {
 	public List<Grupo> listarGrupos(){
 		List<Grupo> listaGrupos = new ArrayList<Grupo>();
 		try {
-			List<GrupoDTO>listaGruposDTO = servicoGrupo.listar();
+			List<GrupoEncapsulador>listaGruposDTO = servicoGrupo.listar();
 			
-			for(GrupoDTO grupoDTO : listaGruposDTO){
+			for(GrupoEncapsulador grupoDTO : listaGruposDTO){
 				Grupo grupo = new Grupo();
 				grupo.setId(grupoDTO.getId());
 				grupo.setNome(grupoDTO.getNome());
@@ -61,7 +61,7 @@ public class GrupoBean implements IGrupoBean {
 	public void cadastrarDadosDoGrupo() {
 		Mensagem mensagem = new Mensagem();
 		try {
-			GrupoDTO grupoDTO = new GrupoDTO();
+			GrupoEncapsulador grupoDTO = new GrupoEncapsulador();
 			grupoDTO.setId(grupo.getId());
 			grupoDTO.setNome(grupo.getNome());
 			
@@ -92,7 +92,7 @@ public class GrupoBean implements IGrupoBean {
 	 * Método que busca os dados do grupo através do seu id
 	 */
 	private boolean buscarDadosGrupo(String id){
-		GrupoDTO grupoDTO = new GrupoDTO();
+		GrupoEncapsulador grupoDTO = new GrupoEncapsulador();
 		grupoDTO.setId(Integer.parseInt(id));
 		
 		try {
@@ -114,7 +114,7 @@ public class GrupoBean implements IGrupoBean {
 	public void alterarDadosDoGrupo() {
 		Mensagem mensagem = new Mensagem();
 		try {
-			GrupoDTO grupoDTO = new GrupoDTO();
+			GrupoEncapsulador grupoDTO = new GrupoEncapsulador();
 			grupoDTO.setId(grupo.getId());
 			grupoDTO.setNome(grupo.getNome());			
 			servicoGrupo.alterar(grupoDTO);
@@ -132,7 +132,7 @@ public class GrupoBean implements IGrupoBean {
 	public void excluirGrupo(Grupo grupo){
 		Mensagem mensagem = new Mensagem();
 		
-		GrupoDTO grupoDTO = new GrupoDTO();
+		GrupoEncapsulador grupoDTO = new GrupoEncapsulador();
 		grupoDTO.setId(grupo.getId());
 		
 		try {

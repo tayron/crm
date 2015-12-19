@@ -1,12 +1,7 @@
-package br.com.crm.dtos;
+package br.com.crm.encapsuladores;
 
 
-public class PessoaDTO extends DTOAbstrato {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class PessoaEncapsulador extends EncapsuladorAbstrato {
 
 	/**
 	 * Armazena o nome da pessoa
@@ -26,7 +21,7 @@ public class PessoaDTO extends DTOAbstrato {
 	/**
 	 * Armazena o status da pessoa, se ela está ativa ou não.
 	 */
-	private Boolean ativo;
+	protected Boolean ativo;
 
 	/**
 	 * @return the nome

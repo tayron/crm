@@ -11,7 +11,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import br.com.crm.daos.GrupoDAO;
-import br.com.crm.dtos.GrupoDTO;
+import br.com.crm.encapsuladores.GrupoEncapsulador;
 import br.com.crm.entidades.Grupo;
 import br.com.crm.excecoes.ExcecaoModelo;
 import br.com.crm.excecoes.ExcecaoServico;
@@ -43,10 +43,10 @@ public class ServicoGrupo implements IServicoGrupo{
 	}
 	
 	/**
-	 * @see IServicoGrupo#incluir(GrupoDTO)
+	 * @see IServicoGrupo#incluir(GrupoEncapsulador)
 	 */
 	@Override
-	public void incluir(GrupoDTO grupoDTO) throws ExcecaoServico {
+	public void incluir(GrupoEncapsulador grupoDTO) throws ExcecaoServico {
 		Grupo grupo = new Grupo();
 		grupo.setNome(grupoDTO.getNome());
 		
@@ -58,10 +58,10 @@ public class ServicoGrupo implements IServicoGrupo{
 	}
 
 	/**
-	 * @see IServicoGrupo#alterar(GrupoDTO)
+	 * @see IServicoGrupo#alterar(GrupoEncapsulador)
 	 */
 	@Override
-	public void alterar(GrupoDTO grupoDTO) throws ExcecaoServico {
+	public void alterar(GrupoEncapsulador grupoDTO) throws ExcecaoServico {
 		Grupo grupo = new Grupo();
 		grupo.setId(grupoDTO.getId());
 		
@@ -76,10 +76,10 @@ public class ServicoGrupo implements IServicoGrupo{
 	}
 
 	/**
-	 * @see IServicoGrupo#excluir(GrupoDTO)
+	 * @see IServicoGrupo#excluir(GrupoEncapsulador)
 	 */
 	@Override
-	public void excluir(GrupoDTO grupoDTO) throws ExcecaoServico {
+	public void excluir(GrupoEncapsulador grupoDTO) throws ExcecaoServico {
 		try {
 			Grupo grupo = new Grupo();
 			grupo.setId(grupoDTO.getId());	
@@ -96,13 +96,13 @@ public class ServicoGrupo implements IServicoGrupo{
 	 * @see servico.IServicoGrupo#listar()
 	 */
 	@Override
-	public List<GrupoDTO> listar() throws ExcecaoServico {		
+	public List<GrupoEncapsulador> listar() throws ExcecaoServico {		
 		try {
-			List<GrupoDTO> gruposDTO = new ArrayList<GrupoDTO>();
+			List<GrupoEncapsulador> gruposDTO = new ArrayList<GrupoEncapsulador>();
 			List<Grupo> grupos = grupoDAO.listar();
 			
 			for(Grupo grupo : grupos){	
-				GrupoDTO grupoDTO = new GrupoDTO();
+				GrupoEncapsulador grupoDTO = new GrupoEncapsulador();
 				grupoDTO.setId(grupo.getId());
 				grupoDTO.setNome(grupo.getNome());
 				gruposDTO.add(grupoDTO);
@@ -116,10 +116,10 @@ public class ServicoGrupo implements IServicoGrupo{
 	}
 
 	/**
-	 * @see IServicoGrupo#recuperar(GrupoDTO)
+	 * @see IServicoGrupo#recuperar(GrupoEncapsulador)
 	 */
 	@Override
-	public GrupoDTO recuperar(GrupoDTO grupoDTO) throws ExcecaoServico {
+	public GrupoEncapsulador recuperar(GrupoEncapsulador grupoDTO) throws ExcecaoServico {
 		try {
 			Grupo grupo = new Grupo();
 			grupo.setId(grupoDTO.getId());

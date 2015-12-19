@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import javax.persistence.Query;
 
 import br.com.crm.entidades.Grupo;
 import br.com.crm.excecoes.ExcecaoModelo;
@@ -58,12 +58,13 @@ public class GrupoDAO implements IGrupoDAO{
 	/**
 	 * {@link IGrupoDAO#listar()}
 	 */
+	@SuppressWarnings("unchecked")
 	public List<Grupo> listar() throws ExcecaoModelo {		
-		TypedQuery<Grupo> query = entityManager
-			.createQuery("Select u from Grupo u", 
-				Grupo.class);
+		Query query = entityManager
+			.createQuery("Select g from Grupo g", 
+					Grupo.class);
 		
-		return query.getResultList();
+		 return query.getResultList();
 	}
 
 	/**

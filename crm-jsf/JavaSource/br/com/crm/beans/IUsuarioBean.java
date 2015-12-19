@@ -10,6 +10,11 @@ import br.com.crm.modelos.Usuario;
 public interface IUsuarioBean {
 
 	/**
+	 * Método que carrega uma lista de grupos de usuários
+	 */
+	public void carregarGruposDeUsuario();
+	
+	/**
 	 * Método que busca todos os usuários cadastrados
 	 */
 	public List<Usuario> listarUsuarios();
@@ -20,11 +25,6 @@ public interface IUsuarioBean {
 	public void cadastrarDadosDoUsuario();
 	
 	/**
-	 * Método que busca e exibe a tela de edição dos dados do usuário
-	 */
-	public String exibirTelaAlterarUsuario(String id);
-	
-	/**
 	 * Método que altera os dados do usuário no banco
 	 */
 	public void alterarDadosDoUsuario();
@@ -32,5 +32,15 @@ public interface IUsuarioBean {
 	/**
 	 * Método que exclui os dados do usuário no banco
 	 */
-	public void excluirUsuario(Usuario id);	
+	public void excluirUsuario(Usuario id);
+	
+	/**
+	 * Método que busca e exibe a tela de edição dos dados do usuário
+	 */
+	public String exibirTelaAlterarUsuario(String id);
+	
+	/**
+	 * Método que busca e exibe a tela com as informações do usuário
+	 */
+	public String exibirTelaInformacaoUsuario(String id);	
 }

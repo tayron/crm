@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import br.com.crm.encapsuladores.UsuarioInformacaoEncapsulador;
 import br.com.crm.entidades.Usuario;
 import br.com.crm.excecoes.ExcecaoModelo;
 
@@ -92,5 +93,26 @@ public class UsuarioDAO implements IUsuarioDAO{
 		usuario = query.getSingleResult();
 		
 		return usuario != null;
+	}
+
+	/**
+	 * @see IUsuarioDAO#getInformacaoUsuario(Usuario)
+	 */
+	@Override
+	public UsuarioInformacaoEncapsulador getInformacaoUsuario(Usuario usuario)
+			throws ExcecaoModelo {
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("select new br.com.crm.encapsuladores.UsuarioInformacaoEncapsulador(");
+		sql.append("u.nome, u.cpf, u.endereco, u.ativo, u.login, u.grupo.nome)");
+		sql.append(" from Usuario u where u.id = :id");
+		
+		TypedQuery<UsuarioInformacaoEncapsulador> query = entityManager
+				.createQuery(sql.toString(),
+						UsuarioInformacaoEncapsulador.class);
+		
+		query.setParameter("id", usuario.getId());
+		
+		return query.getSingleResult();
 	}
 }
