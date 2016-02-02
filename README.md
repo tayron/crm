@@ -2,6 +2,8 @@
 Exemplo de um sistema usando JPA, EJB e JSF para estudo rodando em cima da jre java 7 e jboss 6 eap.
 
 Adicionar configuração no arquivo standalone.xml do jboss 7 dentro da tag <security-domains>:
+
+```
 <security-domain name="crm-jsf-security-domain" cache-type="default">
     <authentication>
         <login-module code="Database" flag="required">
@@ -13,8 +15,9 @@ Adicionar configuração no arquivo standalone.xml do jboss 7 dentro da tag <sec
         </login-module>
     </authentication>
 </security-domain>
-
-Sql para inserção de um usuário no banco de dados: INSERT INTO `usuarios` (`id`, `ativo`, `cpf`, `endereco`, `nome`, `login`, `senha`, `grupo_id`) VALUES (NULL, NULL, '12345698787', 'asdfasdfa', 'admin', 'admin', 'ISMvKXpXpadDiUoOSoAfww==', '1');
+```
+Sql para inserção de um usuário no banco de dados: 
+```INSERT INTO `usuarios` (`id`, `ativo`, `cpf`, `endereco`, `nome`, `login`, `senha`, `grupo_id`) VALUES (NULL, NULL, '12345698787', 'asdfasdfa', 'admin', 'admin', 'ISMvKXpXpadDiUoOSoAfww==', '1');```
 
 Usuario: admin
 Senha: admin
