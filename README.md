@@ -1,7 +1,7 @@
 # CRM usando JPA, EJB e JSF
 Exemplo de um sistema usando JPA, EJB e JSF para estudo rodando em cima da jre java 7 e jboss 6 eap.
 
-Adicionar configuração no arquivo standalone.xml do jboss 7 dentro da tag <security-domains>:
+Adicionar configuração no arquivo standalone.xml do jboss 7 dentro da tag ```<security-domains>```:
 
 ```
 <security-domain name="crm-jsf-security-domain" cache-type="default">
