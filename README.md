@@ -1,5 +1,5 @@
 # CRM usando JPA, EJB e JSF
-Exemplo de um sistema usando JPA, EJB e JSF para estudo rodando em cima da jre java 7 e jboss 6 eap.
+Exemplo de um sistema usando Maven, JPA, EJB e JSF para estudo rodando em cima da JRE Java 7 e jboss 6 EAP e banco de dados Mysql.
 
 Importar o projeto como um projeto Maven.
 
@@ -25,7 +25,6 @@ Usuario: admin
 Senha: admin
 
 Configurar o Data Source em persistence.xml. Exemplo:
-
-```<jta-data-source>java:/jboss/datasources/MySqlDS</jta-data-source>```
-
-
+```
+<jta-data-source>java:/jboss/datasources/MySqlDS</jta-data-source>
+```
