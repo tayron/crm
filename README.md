@@ -23,8 +23,8 @@ Sql para inserção de um usuário no banco de dados:
 INSERT INTO `usuarios` (`id`, `ativo`, `cpf`, `endereco`, `nome`, `login`, `senha`, `grupo_id`) VALUES (NULL, NULL, '12345698787', 'asdfasdfa', 'admin', 'admin', 'ISMvKXpXpadDiUoOSoAfww==', '1');
 ```
 
-Usuario: admin
-Senha: admin
+**Usuario:** admin
+**Senha:** admin
 
 Configurar o Data Source em persistence.xml. Exemplo:
 ```
