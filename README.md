@@ -1,6 +1,8 @@
 # CRM usando JPA, EJB e JSF
 Exemplo de um sistema usando JPA, EJB e JSF para estudo rodando em cima da jre java 7 e jboss 6 eap.
 
+Importar o projeto como um projeto Maven.
+
 Adicionar configuração no arquivo standalone.xml do jboss 7 dentro da tag ```<security-domains>```:
 
 ```
@@ -21,3 +23,8 @@ Sql para inserção de um usuário no banco de dados:
 
 Usuario: admin
 Senha: admin
+
+Configurar o Data Source em persistence.xml. Exemplo:
+```<jta-data-source>java:/jboss/datasources/MySqlDS</jta-data-source>```
+
+
