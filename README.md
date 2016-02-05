@@ -24,6 +24,7 @@ INSERT INTO `usuarios` (`id`, `ativo`, `cpf`, `endereco`, `nome`, `login`, `senh
 ```
 
 **Usuario:** admin
+
 **Senha:** admin
 
 Configurar o Data Source em persistence.xml. Exemplo:
