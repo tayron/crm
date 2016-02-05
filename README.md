@@ -18,16 +18,17 @@ Adicionar configuração no arquivo standalone.xml do jboss 7 dentro da tag ```<
     </authentication>
 </security-domain>
 ```
-Sql para inserção de um usuário no banco de dados: 
-```
-INSERT INTO `usuarios` (`id`, `ativo`, `cpf`, `endereco`, `nome`, `login`, `senha`, `grupo_id`) VALUES (NULL, NULL, '12345698787', 'asdfasdfa', 'admin', 'admin', 'ISMvKXpXpadDiUoOSoAfww==', '1');
-```
-
-**Usuario:** admin
-**Senha:** admin
 
 Para configurar Mysql no Jboss 6 EAP acesse: 
 [**https://github.com/tayron/configuracao-mysql-jboss-7**](https://github.com/tayron/configuracao-mysql-jboss-7), em seguida configure o Data Source em persistence.xml. Exemplo:
 ```
 <jta-data-source>java:/jboss/datasources/MySqlDS</jta-data-source>
 ```
+
+Após configurado o banco de dados e criado as tabelas no banco, execute a sql abaixo para inserção de um usuário para teste:
+```
+INSERT INTO `usuarios` (`id`, `ativo`, `cpf`, `endereco`, `nome`, `login`, `senha`, `grupo_id`) VALUES (NULL, NULL, '12345698787', 'asdfasdfa', 'admin', 'admin', 'ISMvKXpXpadDiUoOSoAfww==', '1');
+```
+
+**Usuario:** admin
+**Senha:** admin
