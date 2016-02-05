@@ -19,7 +19,9 @@ Adicionar configuração no arquivo standalone.xml do jboss 7 dentro da tag ```<
 </security-domain>
 ```
 Sql para inserção de um usuário no banco de dados: 
-```INSERT INTO `usuarios` (`id`, `ativo`, `cpf`, `endereco`, `nome`, `login`, `senha`, `grupo_id`) VALUES (NULL, NULL, '12345698787', 'asdfasdfa', 'admin', 'admin', 'ISMvKXpXpadDiUoOSoAfww==', '1');```
+```
+INSERT INTO `usuarios` (`id`, `ativo`, `cpf`, `endereco`, `nome`, `login`, `senha`, `grupo_id`) VALUES (NULL, NULL, '12345698787', 'asdfasdfa', 'admin', 'admin', 'ISMvKXpXpadDiUoOSoAfww==', '1');
+```
 
 Usuario: admin
 Senha: admin
