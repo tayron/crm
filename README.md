@@ -25,6 +25,7 @@ Usuario: admin
 Senha: admin
 
 Configurar o Data Source em persistence.xml. Exemplo:
+
 ```<jta-data-source>java:/jboss/datasources/MySqlDS</jta-data-source>```
 
 
