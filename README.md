@@ -26,7 +26,8 @@ INSERT INTO `usuarios` (`id`, `ativo`, `cpf`, `endereco`, `nome`, `login`, `senh
 **Usuario:** admin
 **Senha:** admin
 
-Configurar o Data Source em persistence.xml. Exemplo:
+Para configurar Mysql no Jboss 6 EAP acesse: 
+[**https://github.com/tayron/configuracao-mysql-jboss-7**](https://github.com/tayron/configuracao-mysql-jboss-7), em seguida configure o Data Source em persistence.xml. Exemplo:
 ```
 <jta-data-source>java:/jboss/datasources/MySqlDS</jta-data-source>
 ```
