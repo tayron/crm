@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+	<ui:composition template="/templates/common.xhtml">
+			<ui:define name="body">
+			
+				<f:metadata>    
+	    			<f:event type="preRenderView" listener="#{usuarioBean.carregarGruposDeUsuario()}"/>    
+				</f:metadata>				
+			
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+				    <h1>Usuário <small>Cadastrar</small>
+				    </h1>
+				    <ol class="breadcrumb">
+				        <li><a href="/crm-web/index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+				        <li><a href="/crm-web/pages/admin/usuario/index.xhtml"><i class="fa fa-user"></i> Usuários</a></li>
+				        <li class="active">Cadastrar</li>
+				    </ol>
+				</section>
+				
+				<!-- Main content -->
+				<section class="content">
+				    <div class="row">
+				        <div class="col-xs-12">
+				
+				            <!-- general form elements -->
+				            <div class="box box-primary">
+				                <div class="box-header with-border">
+				                    <h3 class="box-title">Editar usuário</h3>
+				                </div><!-- /.box-header -->
+				                <!-- form start -->
+				                	
+				                	<h:messages id="messages" showDetail="true" autoUpdate="true"/>
+				                	
+									<h:form role="form">
+										<h:inputHidden id="id" name="id" value="#{usuarioBean.usuario.id}" />
+										
+					                    <div class="box-body">
+										    <div class="row">
+										        <div class="col-xs-6">
+													<div class="form-group">
+														<h:outputLabel for="grupo" value="Grupo de usuário: " />														
+														<h:selectOneMenu value="#{usuarioBean.usuario.grupo}" class="form-control">
+															<f:selectItems value="#{usuarioBean.grupos}"/>
+															<f:converter converterId="grupoConverter"/>
+														</h:selectOneMenu>													
+									        		</div>										        
+													<div class="form-group">
+														<h:outputLabel for="nome" value="Nome: " />					
+										        		<h:inputText id="nome" name="nome" value="#{usuarioBean.usuario.nome}" label="Nome" required="true" maxlength="40" class="form-control">
+										        			<f:validateLength maximum="40" />
+										        		</h:inputText>	        		
+										        		<h:message for="nome" style="color:red" />
+									        		</div>
+									        					
+						        					<div class="form-group">			
+														<h:outputLabel for="cpf" value="CPF: " />
+										        		<h:inputText id="cpf" name="cpf" value="#{usuarioBean.usuario.cpf}" label="CPF" required="true" maxlength="11" class="form-control">
+										        			<f:validateLength maximum="11" />
+										        		</h:inputText>
+										        		<h:message for="cpf" style="color:red" />
+									        		</div>
+								
+													<div class="form-group">
+														<h:outputLabel for="endereco" value="Endereço: " />
+										        		<h:inputText id="endereco" name="endereco" value="#{usuarioBean.usuario.endereco}" label="Endereço" required="true" maxlength="40" class="form-control">
+										        			<f:validateLength maximum="40" />
+										        		</h:inputText>
+														<h:message for="endereco" style="color:red" />
+													</div>	
+		
+													<div class="form-group">						
+														<h:outputLabel for="login" value="Login: " />
+										        		<h:inputText id="login" name="login" value="#{usuarioBean.usuario.login}" label="Login" required="true" maxlength="45" class="form-control">
+										        			<f:validateLength maximum="45" />
+										        		</h:inputText>
+										        		<h:message for="login" style="color:red" />
+							        				</div>										        
+										        </div>	
+										        <div class="col-xs-6">
+							        			    <div class="form-group">
+														<h:outputLabel for="senha" value="Senha: " />
+										        		<h:inputText id="senha" name="senha" value="#{usuarioBean.usuario.senha}" label="Senha" required="true" maxlength="6" class="form-control">
+										        			<f:validateLength minimum="6" maximum="6" />
+										        		</h:inputText>
+										        		<h:message for="senha" style="color:red" />
+									        		</div>
+								
+													<div class="form-group">
+									 					<h:outputLabel for="confirmarSenha" value="Confirmar senha: " />
+										        		<h:inputText id="confirmarSenha" name="confirmarSenha" value="#{usuarioBean.usuario.confirmaSenha}" label="Confirmar senha" required="true" maxlength="6" class="form-control">
+										        			<f:validateLength minimum="6" maximum="6" />
+										        		</h:inputText>	 
+										        		<h:message for="confirmarSenha" style="color:red" />
+									        		</div>
+									        		       	
+								       		       	<div class="form-group">
+									   		       		<h:selectOneRadio id="ativo" name="ativo" value="#{usuarioBean.usuario.ativo}" layout="pageDirection" class="form-control" style="border: 0px">
+									   						<f:selectItem itemValue="1" itemLabel="Ativo" />
+									   						<f:selectItem itemValue="0" itemLabel="Inativo" />	   			
+														</h:selectOneRadio>
+													</div>										        
+										        </div>
+									        </div>
+					                    </div><!-- /.box-body -->
+					
+					                    <div class="box-footer">
+											<h:commandButton value="Cadastrar" action="#{usuarioBean.cadastrarDadosDoUsuario()}" class="btn btn-primary"/>
+											<h:link value="Voltar" outcome="index.xhtml" class='btn btn-default' />					                        
+					                    </div>											
+									</h:form>
+				            </div><!-- /.box -->
+				        </div>
+				    </div>
+				</section>	
+			</ui:define>
+	</ui:composition>
+
+</html>

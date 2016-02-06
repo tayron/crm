@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+	<ui:composition 
+	template="/templates/login.xhtml">
+		<ui:define name="body">
+			<p class="login-box-msg">Informe seu login e senha.</p>
+	
+			<!-- form start -->
+			<h:messages id="messages" showDetail="true" autoUpdate="true" />
+			<h:form role="form">
+				<div class="form-group has-feedback">
+					<h:outputLabel for="login" value="Login: " />
+					<h:inputText id="login" name="login" value="#{loginBean.login}"
+						label="Login" required="true" maxlength="40" class="form-control">
+						<f:validateLength maximum="40" />
+					</h:inputText>
+					<h:message for="login" style="color:red" />
+					<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+				</div>
+				<div class="form-group has-feedback">
+					<h:outputLabel for="senha" value="Senha: " />
+					<h:inputSecret id="senha" name="senha" value="#{loginBean.senha}"
+						label="Senha" required="true" maxlength="40" class="form-control">
+						<f:validateLength maximum="40" />
+					</h:inputSecret>
+					<h:message for="senha" style="color:red" />
+					<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+				</div>
+				<div class="row">
+					<div class="col-xs-8">
+						<div class="checkbox icheck">
+							<label> <input type="checkbox"
+								name="_spring_security_remember_me" /> Entrar automaticamente
+							</label>
+						</div>
+					</div>
+					<!-- /.col -->
+					<div class="col-xs-4">
+						<h:commandButton value="Entrar"
+							action="#{loginBean.efetuarLogin()}"
+							class="btn btn-primary btn-block btn-flat" />
+					</div>
+					<!-- /.col -->
+				</div>
+			</h:form>
+	
+			<a href="#">Esqueci minha senha</a>
+			<br />
+	
+		</ui:define>
+	</ui:composition>
+</html>
